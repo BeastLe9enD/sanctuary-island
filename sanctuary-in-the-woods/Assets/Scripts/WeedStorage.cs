@@ -11,7 +11,9 @@ public class WeedStorage : MonoBehaviour {
     public GameObject Player;
     public PlayerInventory PlayerInventory;
     public ItemRegistry ItemRegistry;
-
+    public SpriteRenderer SpriteRenderer;
+    public Sprite Filled;
+    
     private bool CanAttactAnimals() {
         return Slot != null;
     }
@@ -22,6 +24,7 @@ public class WeedStorage : MonoBehaviour {
         Player = GameObject.Find("Player");
         PlayerInventory = FindObjectOfType<PlayerInventory>();
         ItemRegistry = FindObjectOfType<ItemRegistry>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void OnMouseOver() {
@@ -32,9 +35,10 @@ public class WeedStorage : MonoBehaviour {
 
         if (PlayerInventory.CanRemove(toRemove)) {
             PlayerInventory.Remove(toRemove);
+            SpriteRenderer.sprite = Filled;
+            
+            Slot = toRemove;
         }
-
-        Slot = toRemove;
     }
 
     void AttractAnimals() {

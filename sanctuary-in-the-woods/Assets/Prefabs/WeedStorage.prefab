@@ -47,6 +47,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbody: {fileID: 0}
+  Player: {fileID: 0}
+  PlayerInventory: {fileID: 0}
+  ItemRegistry: {fileID: 0}
+  SpriteRenderer: {fileID: 0}
+  Filled: {fileID: 21300000, guid: da49451ff678049a89f1b8e634372067, type: 3}
 --- !u!212 &8496947244580634711
 SpriteRenderer:
   m_ObjectHideFlags: 0
