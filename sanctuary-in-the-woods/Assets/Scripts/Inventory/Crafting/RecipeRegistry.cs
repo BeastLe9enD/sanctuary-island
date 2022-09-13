@@ -2,7 +2,7 @@
 
 namespace Inventory.Crafting
 {
-    public class RecipeRegistry
+    public sealed class RecipeRegistry
     {
         private readonly List<ICraftingRecipe> _recipes = new();
 
@@ -18,6 +18,7 @@ namespace Inventory.Crafting
         public RecipeRegistry(ItemRegistry itemRegistry)
         {
             //Add recipes here
+            AddRecipe(new SimpleCraftingRecipe(new StackedItem(itemRegistry.Stone), new StackedItem(itemRegistry.Weed, 2)));
         }
 
         /// <summary>

@@ -7,7 +7,7 @@ namespace Inventory
     /// </summary>
     
     [Serializable]
-    public class StackedItem
+    public sealed class StackedItem
     {
         public Item Item;
         public int Count;

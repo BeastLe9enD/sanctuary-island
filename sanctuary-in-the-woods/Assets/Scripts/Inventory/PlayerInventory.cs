@@ -7,7 +7,7 @@ namespace Inventory
     /// <summary>
     /// Represents the inventory of the player, with all items inside
     /// </summary>
-    public class PlayerInventory : MonoBehaviour
+    public sealed class PlayerInventory : MonoBehaviour
     {
         [ItemCanBeNull] public readonly StackedItem[] Slots = new StackedItem[10];
 
@@ -79,7 +79,7 @@ namespace Inventory
                 }
             }
 
-            if (remainingSize <= 0) return false;
+            if (remainingSize >= 0)
             {
                 foreach (var slot in Slots)
                 {
