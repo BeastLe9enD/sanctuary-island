@@ -15,3 +15,4 @@ MonoBehaviour:
   RegistryName: seeds
   Name: Samen
   Sprite: {fileID: 21300000, guid: a194488e65ed2c34393cbf080c95c652, type: 3}
+  MaxStackSize: 16

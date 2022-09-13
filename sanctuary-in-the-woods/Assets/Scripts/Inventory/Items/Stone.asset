@@ -15,3 +15,4 @@ MonoBehaviour:
   RegistryName: stone
   Name: Stein
   Sprite: {fileID: 21300000, guid: 07a5ad5a31e66c540a04e89b222fefd2, type: 3}
+  MaxStackSize: 16
