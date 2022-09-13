@@ -42,4 +42,6 @@ sysinfo.txt
 sanctuary-in-the-woods/Assets/StreamingAssets/crashlytics-build.properties
 
 #Jet Brains
-.idea/
+sanctuary-in-the-woods/.idea/
+
+.DS_Store
