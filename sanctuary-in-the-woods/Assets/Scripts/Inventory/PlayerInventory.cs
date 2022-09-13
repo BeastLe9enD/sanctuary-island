@@ -24,18 +24,27 @@ namespace Inventory
             foreach (Transform slot in panel.transform)
             {
                 var child = slot.GetChild(0).GetChild(0);
+                
                 var image = child.GetComponent<Image>();
+                var text = child.GetChild(0).GetComponent<Text>();
                 
                 var item = Slots[index++];
                 if (item == null)
                 {
                     image.enabled = false;
                     image.sprite = null;
+                    text.enabled = false;
                 }
                 else
                 {
                     image.enabled = true;
-                    image.sprite = image.sprite;
+                    image.sprite = item.Item.Sprite;
+                    text.enabled = item.Count > 1;
+
+                    if (text.enabled)
+                    {
+                        text.text = item.Count.ToString();
+                    }
                 }
             }
         }

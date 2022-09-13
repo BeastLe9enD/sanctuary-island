@@ -1,4 +1,5 @@
 using System;
+using Inventory;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -30,6 +31,11 @@ public class Player : MonoBehaviour
         
         var oldTile = topTilemap.GetTile(tile_pos);
         if (oldTile == null) return;
+
+        var itemRegistry = GameObject.Find("ItemRegistry").GetComponent<ItemRegistry>();
+        var playerInventory = GameObject.Find("PlayerInventory").GetComponent<PlayerInventory>();
+        
+        playerInventory.Add(new StackedItem(itemRegistry.Weed, 1));
         
         topTilemap.SetTile(tile_pos, null);
     }

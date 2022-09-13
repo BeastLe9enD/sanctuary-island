@@ -2,20 +2,20 @@
 
 namespace Inventory.Crafting
 {
-    public static class RecipeRegistry
+    public class RecipeRegistry
     {
-        private static readonly List<ICraftingRecipe> _recipes = new();
+        private readonly List<ICraftingRecipe> _recipes = new();
 
         /// <summary>
         /// Adds an crafting recipe
         /// </summary>
         /// <param name="recipe">The recipe</param>
-        private static void AddRecipe(ICraftingRecipe recipe)
+        private void AddRecipe(ICraftingRecipe recipe)
         {
             _recipes.Add(recipe);
         }
 
-        static RecipeRegistry()
+        public RecipeRegistry(ItemRegistry itemRegistry)
         {
             //Add recipes here
         }
@@ -25,7 +25,7 @@ namespace Inventory.Crafting
         /// </summary>
         /// <param name="inventory">The inventory of the player</param>
         /// <returns>The crafting recipes</returns>
-        public static List<ICraftingRecipe> GetMatchingRecipes(PlayerInventory inventory)
+        public List<ICraftingRecipe> GetMatchingRecipes(PlayerInventory inventory)
         {
             var result = new List<ICraftingRecipe>();
 
@@ -58,7 +58,7 @@ namespace Inventory.Crafting
         /// </summary>
         /// <param name="inventory">The inventory of the player</param>
         /// <param name="recipe">The recipe</param>
-        public static void Craft(PlayerInventory inventory, ICraftingRecipe recipe)
+        public void Craft(PlayerInventory inventory, ICraftingRecipe recipe)
         {
             var ingredients = recipe.Ingredients;
             foreach (var ingredient in ingredients)
