@@ -8,5 +8,6 @@ namespace Inventory
         public string RegistryName;
         public string Name;
         public Sprite Sprite;
+        public int MaxStackSize;
     }
 }

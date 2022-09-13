@@ -6,7 +6,7 @@ namespace Inventory
 {
     public class PlayerInventory : MonoBehaviour
     {
-        [ItemCanBeNull] public readonly StackedItem[] slots = new StackedItem[10];
+        [ItemCanBeNull] public readonly StackedItem[] Slots = new StackedItem[10];
 
         void Start()
         {
@@ -20,9 +20,10 @@ namespace Inventory
             var index = 0;
             foreach (Transform slot in panel.transform)
             {
-                var image = slot.GetChild(0).GetChild(0).GetComponent<Image>();
+                var child = slot.GetChild(0).GetChild(0);
+                var image = child.GetComponent<Image>();
                 
-                var item = slots[index++];
+                var item = Slots[index++];
                 if (item == null)
                 {
                     image.enabled = false;
@@ -36,24 +37,139 @@ namespace Inventory
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stack"></param>
+        /// <returns></returns>
         public bool CanAdd(StackedItem stack)
         {
-            return false; //TODO:
+            var maxStackSize = stack.Item.MaxStackSize;
+            var remainingSize = stack.Count;
+
+            foreach (var slot in Slots)
+            {
+                if (slot == null || slot.Item != stack.Item) continue;
+                
+                var requestedSize = remainingSize + slot.Count;
+                if (requestedSize > maxStackSize)
+                {
+                    remainingSize = requestedSize - maxStackSize;
+                }
+                else
+                {
+                    remainingSize = 0;
+                }
+
+                if (remainingSize == 0)
+                {
+                    break;
+                }
+            }
+
+            if (remainingSize <= 0) return false;
+            {
+                foreach (var slot in Slots)
+                {
+                    if (slot == null)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
+        /// <summary>
+        /// Adds an stack from the inventory. Assume that the stack can be added to the inventory
+        /// </summary>
+        /// <param name="stack"></param>
         public void Add(StackedItem stack)
         {
-            //TODO:
+            var maxStackSize = stack.Item.MaxStackSize;
+            var remainingSize = stack.Count;
+
+            foreach (var slot in Slots)
+            {
+                if (slot == null || slot.Item != stack.Item) continue;
+                var requestedSize = remainingSize + slot.Count;
+                if (requestedSize > maxStackSize)
+                {
+                    slot.Count = maxStackSize;
+                    remainingSize = requestedSize - maxStackSize;
+                }
+                else
+                {
+                    slot.Count = requestedSize;
+                    remainingSize = 0;
+                }
+
+                if (remainingSize == 0)
+                {
+                    break;
+                }
+            }
+            
+            if (remainingSize > 0)
+            {
+                for (var i = 0; i < Slots.Length; i++)
+                {
+                    if (Slots[i] == null)
+                    {
+                        Slots[i] = new StackedItem(stack.Item, remainingSize);
+                        break;
+                    }
+                }
+            }
+
+            UpdateUI();
         }
         
+        /// <summary>
+        /// Check if the stack is present in the inventory and can be removed
+        /// </summary>
+        /// <param name="stack">The stack to remove</param>
+        /// <returns>If the stack can be removed</returns>
         public bool CanRemove(StackedItem stack)
         {
-            return false; //TODO:
+            var remainingSize = stack.Count;
+
+            foreach (var slot in Slots)
+            {
+                if (slot == null || slot.Item != stack.Item) continue;
+                if (slot.Count > remainingSize)
+                {
+                    return true;
+                }
+                remainingSize -= slot.Count;
+            }
+
+            return remainingSize == 0;
         }
 
+        /// <summary>
+        /// Removes an stack from the inventory. Assume that the stack can be removed from the inventory
+        /// </summary>
+        /// <param name="stack">The stack to remove</param>
         public void Remove(StackedItem stack)
         {
-            //TODO:
+            var remainingSize = stack.Count;
+
+            foreach (var slot in Slots)
+            {
+                if (slot == null || slot.Item != stack.Item) continue;
+                if (slot.Count > remainingSize)
+                {
+                    slot.Count -= remainingSize;
+                    return;
+                }
+
+                slot.Count = 0;
+                remainingSize -= slot.Count;
+            }
+            
+            UpdateUI();
         }
     }
 }
