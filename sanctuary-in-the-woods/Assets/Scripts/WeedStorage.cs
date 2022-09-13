@@ -13,8 +13,7 @@ public class WeedStorage : MonoBehaviour {
     public ItemRegistry ItemRegistry;
 
     private bool CanAttactAnimals() {
-        if (Slot == null) return false;
-        return Slot.Item.Equals(ItemRegistry.Weed);
+        return Slot != null;
     }
     
     void Start() {
@@ -27,16 +26,12 @@ public class WeedStorage : MonoBehaviour {
 
     private void OnMouseOver() {
         if (!Input.GetMouseButtonDown(2)) return;
+        if (Slot != null) return;
 
         var toRemove = new StackedItem(ItemRegistry.Weed);
-        
-        Debug.Log("Clicked");
 
         if (PlayerInventory.CanRemove(toRemove)) {
-            Debug.Log("Can be removed");
-            
             PlayerInventory.Remove(toRemove);
-            //TODO:
         }
 
         Slot = toRemove;
