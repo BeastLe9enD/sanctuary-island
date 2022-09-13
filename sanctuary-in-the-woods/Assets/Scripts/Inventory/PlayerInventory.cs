@@ -168,17 +168,20 @@ namespace Inventory
         {
             var remainingSize = stack.Count;
 
-            foreach (var slot in Slots)
+            for (var i = 0; i < Slots.Length; i++)
             {
+                var slot = Slots[i];
                 if (slot == null || slot.Item != stack.Item) continue;
                 if (slot.Count > remainingSize)
                 {
                     slot.Count -= remainingSize;
+                    UpdateUI();
+                    
                     return;
                 }
-
-                slot.Count = 0;
+                
                 remainingSize -= slot.Count;
+                Slots[i] = null;
             }
             
             UpdateUI();

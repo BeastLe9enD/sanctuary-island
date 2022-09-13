@@ -32,8 +32,8 @@ public class Player : MonoBehaviour
         var oldTile = topTilemap.GetTile(tile_pos);
         if (oldTile == null) return;
 
-        var itemRegistry = GameObject.Find("ItemRegistry").GetComponent<ItemRegistry>();
-        var playerInventory = GameObject.Find("PlayerInventory").GetComponent<PlayerInventory>();
+        var itemRegistry = FindObjectOfType<ItemRegistry>();
+        var playerInventory = FindObjectOfType<PlayerInventory>();
         
         playerInventory.Add(new StackedItem(itemRegistry.Weed, 1));
         

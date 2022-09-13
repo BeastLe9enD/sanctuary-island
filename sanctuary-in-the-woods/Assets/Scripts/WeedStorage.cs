@@ -36,7 +36,7 @@ public class WeedStorage : MonoBehaviour {
             Debug.Log("Can be removed");
             
             PlayerInventory.Remove(toRemove);
-            PlayerInventory.
+            //TODO:
         }
 
         Slot = toRemove;
