@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 namespace Inventory
 {
+    /// <summary>
+    /// Represents the inventory of the player, with all items inside
+    /// </summary>
     public class PlayerInventory : MonoBehaviour
     {
         [ItemCanBeNull] public readonly StackedItem[] Slots = new StackedItem[10];
