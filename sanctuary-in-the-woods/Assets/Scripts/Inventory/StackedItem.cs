@@ -2,6 +2,10 @@
 
 namespace Inventory
 {
+    /// <summary>
+    /// An item with a size
+    /// </summary>
+    
     [Serializable]
     public class StackedItem
     {

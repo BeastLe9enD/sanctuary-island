@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Inventory
 {
+    /// <summary>
+    /// The registry where all items are stored
+    /// </summary>
     public class ItemRegistry : MonoBehaviour
     {
         public Item Weed;

@@ -44,6 +44,13 @@ public class Player : MonoBehaviour
     void Update() {
         Movement();
         DestroyTopTiles();
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            var transform = GameObject.Find("Canvas").transform;
+            var obj = transform.GetChild(1).gameObject;
+            obj.SetActive(!obj.activeSelf);
+        }
     }
 
     private void FixedUpdate() {
