@@ -8,8 +8,15 @@ namespace Inventory
     /// </summary>
     public sealed class ItemRegistry : MonoBehaviour
     {
-        public Item Weed;
         public Item Stone;
+        public Item Weed;
+        public Item WeedFeed;
+        public Item Berries;
+        public Item BerryFeed;
+        public Item Seeds;
+        public Item SeedFeed;
+        public Item Wood;
+        
 
         public RecipeRegistry RecipeRegistry;
         
