@@ -1,6 +1,8 @@
 using System;
 using Objects;
 using UnityEngine;
+using UnityEngine.AI;
+using Util;
 using URandom = Unity.Mathematics.Random;
 
 namespace Animals {
@@ -13,13 +15,10 @@ namespace Animals {
         private float _radius;
 
         private Vector2 _requestedPosition;
-        private Vector2 _direction;
-        private float _requestedLength;
-        private float _traveledLength;
-
-        private float _requestedWaitTime;
         private float _waitedTime;
-        private void GenerateNewTask(Vector2 srcPosition) {
+        private float _timeToWait;
+        
+        private void GenerateNewTask(Vector2 srcPosition, AnimalStateManager manager) {
             var random = new URandom();
             random.InitState((uint)DateTime.Now.Ticks);
             
@@ -27,13 +26,18 @@ namespace Animals {
             var length = random.NextFloat(_radius);
             
             _requestedPosition = _origin + new Vector2(Mathf.Cos(angle) * length, Mathf.Sin(angle) * length);
-            _requestedLength = (_requestedPosition - srcPosition).magnitude;
-            _traveledLength = 0.0f;
-
-            _direction = (_requestedPosition - srcPosition).normalized;
 
             _waitedTime = 0.0f;
-            _requestedWaitTime = random.NextFloat(2.0f, 6.0f);
+            _timeToWait = random.NextFloat(2.0f, 6.0f);
+            
+            manager.Agent.SetDestination(_requestedPosition);
+
+            if (!NavMeshUtils.IsAccessible(_requestedPosition)) {
+                GenerateNewTask(srcPosition, manager);
+                return;
+            }
+            
+            Debug.Log($"Setting destination to {_requestedPosition}");
         }
 
         private void CheckForAttraction(AnimalStateManager manager) {
@@ -62,14 +66,12 @@ namespace Animals {
         }
             
         public override void OnEnter(AnimalStateManager manager) {
-            Debug.Log("ENTER");
-            
             _rigidbody = manager.GetComponent<Rigidbody2D>();
 
             _origin = manager.transform.position;
             _radius = 5.0f;
 
-            GenerateNewTask(_origin);
+            GenerateNewTask(_origin, manager);
         }
 
         public override void OnUpdate(AnimalStateManager manager) {
@@ -80,21 +82,15 @@ namespace Animals {
             CheckForAttraction(manager);
             
             Vector2 playerPosition = manager.transform.position;
-            
-            if (_traveledLength < _requestedLength) {
-                _rigidbody.velocity = _direction * manager.WalkSpeed;
-                _traveledLength += manager.WalkSpeed / 50.0f;
-                return;
-            }
 
-            _rigidbody.velocity = Vector2.zero;
+            if (manager.Agent.velocity != Vector3.zero) return;
 
-            if (_waitedTime < _requestedWaitTime) {
+            if (_waitedTime < _timeToWait) {
                 _waitedTime += Time.deltaTime;
                 return;
             }
-            
-            GenerateNewTask(playerPosition);
+
+            GenerateNewTask(playerPosition, manager);
         }
 
         public override void OnCollisionEnter(AnimalStateManager manager, Collision2D collision) {
