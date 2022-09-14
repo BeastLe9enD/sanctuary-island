@@ -57,6 +57,7 @@ namespace Animals {
 
             if (lastDistance > AnimalStateAttracted.ATTRACTION_DISTANCE || selectedIndex == -1) return;
 
+            _rigidbody.velocity = Vector2.zero;
             manager.Attracted.AttractingStorage = weedStorages[selectedIndex];
             manager.Switch(manager.Attracted);
         }
