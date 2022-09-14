@@ -17,6 +17,7 @@ namespace Inventory
         public Item SeedFeed;
         public Item Wood;
         public Item Cake;
+        public Item Bag;
 
         public RecipeRegistry RecipeRegistry;
         

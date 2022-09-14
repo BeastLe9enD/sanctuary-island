@@ -18,7 +18,10 @@ namespace Inventory.Crafting
         public RecipeRegistry(ItemRegistry itemRegistry)
         {
             //Add recipes here
-            AddRecipe(new SimpleCraftingRecipe(new StackedItem(itemRegistry.Stone), new StackedItem(itemRegistry.Weed, 2)));
+            AddRecipe(new SimpleCraftingRecipe(new StackedItem(itemRegistry.Bag), new StackedItem(itemRegistry.Weed, 2)));
+            AddRecipe(new SimpleCraftingRecipe(new StackedItem(itemRegistry.WeedFeed), new StackedItem(itemRegistry.Bag), new StackedItem(itemRegistry.Weed, 2)));
+            AddRecipe(new SimpleCraftingRecipe(new StackedItem(itemRegistry.BerryFeed), new StackedItem(itemRegistry.Bag), new StackedItem(itemRegistry.Berries, 2)));
+            AddRecipe(new SimpleCraftingRecipe(new StackedItem(itemRegistry.SeedFeed), new StackedItem(itemRegistry.Bag), new StackedItem(itemRegistry.Seeds, 2)));
         }
 
         /// <summary>
