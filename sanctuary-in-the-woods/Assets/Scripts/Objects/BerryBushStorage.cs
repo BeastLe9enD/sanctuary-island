@@ -68,7 +68,7 @@ namespace Objects
 
         void FixedUpdate()
         {
-            if (_state != State.Mature && ++_elapsedTime > 200)
+            if (_state != State.Mature && ++_elapsedTime > 800)
             {
                 _elapsedTime = 0;
                 UpdateState(_state == State.Empty ? State.Growing : State.Mature);
