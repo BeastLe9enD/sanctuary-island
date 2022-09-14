@@ -1,5 +1,7 @@
+using System;
 using Inventory;
 using UnityEngine;
+using URandom = Unity.Mathematics.Random;
 
 namespace Objects
 {
@@ -51,10 +53,11 @@ namespace Objects
         
         private void OnMouseOver()
         {
-            if (!Input.GetMouseButtonDown(2)) return;
+            if (!Input.GetMouseButtonDown(1)) return;
             if (_state != State.Mature) return;
 
-            var stack = new StackedItem(_itemRegistry.Berries, 1); //TODO: more berries luck??
+            var random = new URandom((uint)DateTime.Now.Ticks);
+            var stack = new StackedItem(_itemRegistry.Berries, 1 + random.NextInt(2));
 
             if (_playerInventory.CanAdd(stack))
             {

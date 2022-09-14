@@ -32,7 +32,7 @@ namespace Objects
 
         private void OnMouseOver() 
         {
-            if (!Input.GetMouseButtonDown(2)) return;
+            if (!Input.GetMouseButtonDown(1)) return;
             if (Slot != null) return;
 
             var toRemove = new StackedItem(ItemRegistry.Weed);
