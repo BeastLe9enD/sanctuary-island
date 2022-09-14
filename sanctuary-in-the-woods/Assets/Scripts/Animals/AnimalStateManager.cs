@@ -7,10 +7,11 @@ namespace Animals {
         private AnimalState _currentState;
         private NavMeshAgent _agent;
         public NavMeshAgent Agent => _agent;
-        
-        public float WalkSpeed = 0.5f;
-        public float RunSpeed = 1.0f;
-        
+        private Animator _animator;
+
+        private bool _lookRight;
+        private GameObject _gameObject;
+
         public readonly AnimalStateIdle Idle = new AnimalStateIdle();
         public readonly AnimalStateAttracted Attracted = new AnimalStateAttracted();
 
@@ -18,15 +19,24 @@ namespace Animals {
             _agent = GetComponent<NavMeshAgent>();
             _agent.updateRotation = false;
             _agent.updateUpAxis = false;
-            
+            _animator = GetComponent<Animator>();
+            _gameObject = gameObject;
             Switch(Idle);
         }
 
         private void Update() {
             _currentState.OnUpdate(this);
+            Debug.Log( gameObject.name + ": " + _agent.velocity);
         }
 
         private void FixedUpdate() {
+            _animator.SetBool("isWalking", _agent.velocity != Vector3.zero);
+            if (_agent.velocity.x > 0 && !_lookRight) {
+                Flip();
+            }
+            else if (_agent.velocity.x < 0 && _lookRight) {
+                Flip();
+            }
             _currentState.OnFixedUpdate(this);
         }
 
@@ -37,6 +47,14 @@ namespace Animals {
         public void Switch(AnimalState state) {
             _currentState = state;
             _currentState.OnEnter(this);
+        }
+
+        private void Flip() {
+            Debug.Log("flip");
+            var currentScale = gameObject.transform.localScale;
+            currentScale.x *= -1;
+            _gameObject.transform.localScale = currentScale;
+            _lookRight = !_lookRight;
         }
     }
 }
