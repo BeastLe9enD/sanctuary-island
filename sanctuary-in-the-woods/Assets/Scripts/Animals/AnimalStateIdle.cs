@@ -48,7 +48,6 @@ namespace Animals {
                 
                 Vector2 weedStoragePosition = weedStorage.gameObject.transform.position;
                 var distance = Mathf.Abs(Vector2.Distance(weedStoragePosition, manager.transform.position));
-                Debug.Log(distance);
 
                 if (lastDistance < distance) continue;
                 lastDistance = distance;
