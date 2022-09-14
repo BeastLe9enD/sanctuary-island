@@ -21,12 +21,13 @@ namespace Animals {
 
         public override void OnCollisionEnter(AnimalStateManager manager, Collision2D collision) {
             if (collision.gameObject.TryGetComponent<WeedStorage>(out var weedStorage)) {
-                //manager.Switch(manager.Idle);
-
                 manager.Agent.isStopped = true;
                 manager.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 
                 weedStorage.Clear();
+
+                manager.Agent.isStopped = false;
+                manager.Switch(manager.Idle);
             }
         }
     }

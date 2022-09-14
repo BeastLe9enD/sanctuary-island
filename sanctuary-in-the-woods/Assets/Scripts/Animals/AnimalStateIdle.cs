@@ -2,6 +2,7 @@ using System;
 using Objects;
 using UnityEngine;
 using UnityEngine.AI;
+using Util;
 using URandom = Unity.Mathematics.Random;
 
 namespace Animals {
@@ -31,6 +32,11 @@ namespace Animals {
             
             manager.Agent.SetDestination(_requestedPosition);
 
+            if (!NavMeshUtils.IsAccessible(_requestedPosition)) {
+                GenerateNewTask(srcPosition, manager);
+                return;
+            }
+            
             Debug.Log($"Setting destination to {_requestedPosition}");
         }
 
