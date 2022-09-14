@@ -7,9 +7,11 @@ namespace Animals {
         private AnimalState _currentState;
         private NavMeshAgent _agent;
         public NavMeshAgent Agent => _agent;
+        
         private Animator _animator;
-
+        private static readonly int IsWalking = Animator.StringToHash("isWalking");
         private bool _lookRight;
+        
         private GameObject _gameObject;
 
         public readonly AnimalStateIdle Idle = new AnimalStateIdle();
@@ -25,18 +27,17 @@ namespace Animals {
         }
 
         private void Update() {
-            _currentState.OnUpdate(this);
-            Debug.Log( gameObject.name + ": " + _agent.velocity);
-        }
-
-        private void FixedUpdate() {
-            _animator.SetBool("isWalking", _agent.velocity != Vector3.zero);
+            _animator.SetBool(IsWalking, _agent.velocity != Vector3.zero);
             if (_agent.velocity.x > 0 && !_lookRight) {
                 Flip();
             }
             else if (_agent.velocity.x < 0 && _lookRight) {
                 Flip();
             }
+            _currentState.OnUpdate(this);
+        }
+
+        private void FixedUpdate() {
             _currentState.OnFixedUpdate(this);
         }
 
