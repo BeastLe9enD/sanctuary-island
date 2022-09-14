@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     void Start() {
         rigidbody = gameObject.AddComponent<Rigidbody2D>();
         rigidbody.gravityScale = 0.0f;
+        rigidbody.freezeRotation = true;
 
         topTilemap = GameObject.Find("Top").GetComponent<Tilemap>();
     }
