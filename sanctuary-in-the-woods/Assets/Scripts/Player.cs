@@ -5,21 +5,21 @@ using UnityEngine.Tilemaps;
 
 public class Player : MonoBehaviour
 {
-    public float playerSpeed = 5.0f;
-    private Rigidbody2D rigidbody;
-    private Vector2 playerDirection;
-    private Tilemap topTilemap;
+    public float PlayerSpeed = 5.0f;
+    private Rigidbody2D Rigidbody;
+    private Vector2 PlayerDirection;
+    private Tilemap TopTilemap;
 
     void Start() {
-        rigidbody = gameObject.AddComponent<Rigidbody2D>();
-        rigidbody.gravityScale = 0.0f;
-        rigidbody.freezeRotation = true;
+        Rigidbody = gameObject.AddComponent<Rigidbody2D>();
+        Rigidbody.gravityScale = 0.0f;
+        Rigidbody.freezeRotation = true;
 
-        topTilemap = GameObject.Find("Top").GetComponent<Tilemap>();
+        TopTilemap = GameObject.Find("Top").GetComponent<Tilemap>();
     }
 
     void Movement() {
-        playerDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        PlayerDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
     }
 
     void DestroyTopTiles() {
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
         if (distance > 2.0f) return;
         
-        var oldTile = topTilemap.GetTile(tile_pos);
+        var oldTile = TopTilemap.GetTile(tile_pos);
         if (oldTile == null) return;
 
         var itemRegistry = FindObjectOfType<ItemRegistry>();
@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
         
         playerInventory.Add(new StackedItem(itemRegistry.Weed, 1));
         
-        topTilemap.SetTile(tile_pos, null);
+        TopTilemap.SetTile(tile_pos, null);
     }
     
     // Update is called once per frame
@@ -55,11 +55,11 @@ public class Player : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        rigidbody.velocity = new Vector2(playerDirection.x * playerSpeed, playerDirection.y * playerSpeed);
+        Rigidbody.velocity = new Vector2(PlayerDirection.x * PlayerSpeed, PlayerDirection.y * PlayerSpeed);
     }
 
     private (Vector3Int, Vector2) GetTileOnMouse() {
         var mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        return (topTilemap.WorldToCell(mouseWorldPos), new Vector2(mouseWorldPos.x, mouseWorldPos.y));
+        return (TopTilemap.WorldToCell(mouseWorldPos), new Vector2(mouseWorldPos.x, mouseWorldPos.y));
     }
 }

@@ -1,20 +1,10 @@
 using UnityEngine;
 
-public class CameraMovement : MonoBehaviour
+public sealed class CameraMovement : MonoBehaviour
 {
-    public Transform followTransform;
+    public Transform FollowTransform;
     
-    void Start()
-    {
-        
-    }
-
     void FixedUpdate() {
-        transform.position = new Vector3(followTransform.position.x, followTransform.position.y, transform.position.z);
-    }
-    
-    void Update()
-    {
-        
+        transform.position = new Vector3(FollowTransform.position.x, FollowTransform.position.y, transform.position.z);
     }
 }
