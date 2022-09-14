@@ -33,7 +33,32 @@ namespace Inventory.Animal {
 
             _waitedTime = 0.0f;
             _requestedWaitTime = random.NextFloat(2.0f, 6.0f);
-        }    
+        }
+
+        private void CheckForAttraction(AnimalStateManager manager) {
+            var selectedIndex = -1;
+            var lastDistance = float.PositiveInfinity;
+            
+            var weedStorages = GameObject.FindObjectsOfType<WeedStorage>();
+
+            for (var i = 0; i < weedStorages.Length; i++) {
+                var weedStorage = weedStorages[i];
+                if (!weedStorage.CanAttactAnimals()) continue;
+                
+                Vector2 weedStoragePosition = weedStorage.gameObject.transform.position;
+                var distance = Mathf.Abs(Vector2.Distance(weedStoragePosition, manager.transform.position));
+                Debug.Log(distance);
+
+                if (lastDistance < distance) continue;
+                lastDistance = distance;
+                selectedIndex = i;
+            }
+
+            if (lastDistance > AnimalStateAttracted.ATTRACTION_DISTANCE || selectedIndex == -1) return;
+
+            manager.Attracted.AttractingStorage = weedStorages[selectedIndex];
+            manager.Switch(manager.Attracted);
+        }
             
         public override void OnEnter(AnimalStateManager manager) {
             _rigidbody = manager.GetComponent<Rigidbody2D>();
@@ -49,6 +74,8 @@ namespace Inventory.Animal {
         }
 
         public override void OnFixedUpdate(AnimalStateManager manager) {
+            CheckForAttraction(manager);
+            
             Vector2 playerPosition = manager.transform.position;
             
             if (_traveledLength < _requestedLength) {

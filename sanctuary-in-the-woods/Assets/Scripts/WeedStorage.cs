@@ -14,7 +14,7 @@ public class WeedStorage : MonoBehaviour {
     public SpriteRenderer SpriteRenderer;
     public Sprite Filled;
     
-    private bool CanAttactAnimals() {
+    public bool CanAttactAnimals() {
         return Slot != null;
     }
     
