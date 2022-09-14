@@ -62,6 +62,8 @@ namespace Animals {
         }
             
         public override void OnEnter(AnimalStateManager manager) {
+            Debug.Log("ENTER");
+            
             _rigidbody = manager.GetComponent<Rigidbody2D>();
 
             _origin = manager.transform.position;
@@ -95,7 +97,7 @@ namespace Animals {
             GenerateNewTask(playerPosition);
         }
 
-        public override void OnCollisionEnter(AnimalStateManager manager) {
+        public override void OnCollisionEnter(AnimalStateManager manager, Collision2D collision) {
             
         }
     }

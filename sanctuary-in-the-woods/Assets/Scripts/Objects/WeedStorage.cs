@@ -13,8 +13,14 @@ namespace Objects
         public PlayerInventory PlayerInventory;
         public ItemRegistry ItemRegistry;
         public SpriteRenderer SpriteRenderer;
+        public Sprite NotFilled;
         public Sprite Filled;
-    
+
+        public void Clear() {
+            SpriteRenderer.sprite = NotFilled;
+            Slot = null;
+        }
+        
         public bool CanAttactAnimals()
         {
             return Slot != null;

@@ -8,7 +8,7 @@ namespace Animals {
         public WeedStorage AttractingStorage;
         
         public override void OnEnter(AnimalStateManager manager) {
-            Debug.Log($"Attracted to storage on place {manager.transform}");
+            manager.Agent.SetDestination(AttractingStorage.transform.position);
         }
 
         public override void OnUpdate(AnimalStateManager manager) {
@@ -19,8 +19,15 @@ namespace Animals {
             
         }
 
-        public override void OnCollisionEnter(AnimalStateManager manager) {
-            
+        public override void OnCollisionEnter(AnimalStateManager manager, Collision2D collision) {
+            if (collision.gameObject.TryGetComponent<WeedStorage>(out var weedStorage)) {
+                //manager.Switch(manager.Idle);
+
+                manager.Agent.isStopped = true;
+                manager.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                
+                weedStorage.Clear();
+            }
         }
     }
 }
