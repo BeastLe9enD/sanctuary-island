@@ -17,7 +17,10 @@ namespace Animals {
         private Vector2 _requestedPosition;
         private float _waitedTime;
         private float _timeToWait;
-        
+
+        private float _moveStartTime;
+
+
         private void GenerateNewTask(Vector2 srcPosition, AnimalStateManager manager) {
             var random = new URandom();
             random.InitState((uint)DateTime.Now.Ticks);
@@ -29,6 +32,7 @@ namespace Animals {
 
             _waitedTime = 0.0f;
             _timeToWait = random.NextFloat(2.0f, 6.0f);
+            _moveStartTime = Time.time;
             
             manager.Agent.SetDestination(_requestedPosition);
 
@@ -60,7 +64,6 @@ namespace Animals {
 
             if (lastDistance > AnimalStateAttracted.ATTRACTION_DISTANCE || selectedIndex == -1) return;
 
-            _rigidbody.velocity = Vector2.zero;
             manager.Attracted.AttractingStorage = weedStorages[selectedIndex];
             manager.Switch(manager.Attracted);
         }
@@ -83,8 +86,25 @@ namespace Animals {
             
             Vector2 playerPosition = manager.transform.position;
 
-            if (manager.Agent.velocity != Vector3.zero) return;
+            var agent = manager.Agent;
+            Debug.Log(agent.remainingDistance + ":" + (Time.time - _moveStartTime));
 
+            var shouldWait = true;
+            if (agent.remainingDistance >= agent.stoppingDistance)
+            {
+                if (Time.time - _moveStartTime <= 4.0)
+                {
+                    return;
+                }
+
+                shouldWait = false;
+            }
+
+            if (!shouldWait)
+            {
+                _waitedTime = _timeToWait;
+            }
+            
             if (_waitedTime < _timeToWait) {
                 _waitedTime += Time.deltaTime;
                 return;
