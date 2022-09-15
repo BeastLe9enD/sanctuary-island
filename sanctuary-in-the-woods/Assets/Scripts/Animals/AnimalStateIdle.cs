@@ -18,8 +18,7 @@ namespace Animals {
         private float _timeToWait;
 
         private float _moveStartTime;
-
-
+        
         private void GenerateNewTask(Vector2 srcPosition, AnimalStateManager manager) {
             var random = new URandom();
             random.InitState((uint)DateTime.Now.Ticks);
@@ -40,7 +39,7 @@ namespace Animals {
                 return;
             }
             
-            Debug.Log($"Setting destination to {_requestedPosition}");
+            //Debug.Log($"Setting destination to {_requestedPosition}");
         }
 
         private void CheckForAttraction(AnimalStateManager manager) {
@@ -86,7 +85,7 @@ namespace Animals {
             Vector2 playerPosition = manager.transform.position;
 
             var agent = manager.Agent;
-            Debug.Log(agent.remainingDistance + ":" + (Time.time - _moveStartTime));
+            //Debug.Log(agent.remainingDistance + ":" + (Time.time - _moveStartTime));
 
             var shouldWait = true;
             if (agent.remainingDistance >= agent.stoppingDistance)
