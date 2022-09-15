@@ -13,7 +13,7 @@ namespace Objects.Animals
 
             var stateManager = GetComponent<AnimalStateManager>();
             stateManager.AddState(new AnimalIdleState(new StackedItem(itemRegistry.WeedFeed)));
-            stateManager.AddState(new AnimalTamedState(typeof(RabbitTreeCutState)));
+            stateManager.AddState(new AnimalTamedState(new StackedItem(itemRegistry.WeedFeed, 2), typeof(RabbitTreeCutState)));
             stateManager.AddState(new RabbitTreeCutState());
             
             stateManager.Switch<AnimalIdleState>();
