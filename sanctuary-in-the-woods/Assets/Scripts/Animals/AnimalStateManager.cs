@@ -17,6 +17,8 @@ namespace Animals {
         public readonly AnimalStateIdle Idle = new AnimalStateIdle();
         public readonly AnimalStateAttracted Attracted = new AnimalStateAttracted();
 
+        private const float _THRESHOLD = 0.1f;
+        
         private void Start() {
             _agent = GetComponent<NavMeshAgent>();
             _agent.updateRotation = false;
@@ -28,10 +30,10 @@ namespace Animals {
 
         private void Update() {
             _animator.SetBool(IsWalking, _agent.velocity != Vector3.zero);
-            if (_agent.velocity.x > 0 && !_lookRight) {
+            if (_agent.velocity.x > _THRESHOLD && !_lookRight) {
                 Flip();
             }
-            else if (_agent.velocity.x < 0 && _lookRight) {
+            else if (_agent.velocity.x < -_THRESHOLD && _lookRight) {
                 Flip();
             }
             _currentState.OnUpdate(this);
@@ -51,7 +53,6 @@ namespace Animals {
         }
 
         private void Flip() {
-            return;
             var currentScale = gameObject.transform.localScale;
             currentScale.x *= -1;
             _gameObject.transform.localScale = currentScale;
