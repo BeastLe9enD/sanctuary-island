@@ -3,6 +3,7 @@ using Objects;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using Utils;
 
 namespace Story
 {
@@ -21,6 +22,12 @@ namespace Story
         private Text _dayText;
         private Text _timeText;
 
+        #endregion
+        
+        #region ANIMALS
+
+        public GameObject Rabbit;
+        
         #endregion
         
         private void UpdateTime()
@@ -76,8 +83,19 @@ namespace Story
             {
                 return;
             }
+
+            var random = RamdomUtils.GetRandom();
+            var sourcePos = weedStorage.transform.position;
             
-            
+            for (var i = 0; i < 2; i++)
+            {
+                Debug.Log("SPAWN RABBIT");
+                var rabbit = Instantiate(Rabbit);
+                
+                var targetPos = sourcePos + new Vector3(random.NextFloat(-2, 2), random.NextFloat(-2, 2));
+
+                Instantiate(Rabbit, targetPos, Quaternion.identity);
+            }
         }
         
         #endregion
