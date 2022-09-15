@@ -1,9 +1,14 @@
+using System;
+using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Animals {
     public class AnimalStateManager : MonoBehaviour {
-        private AnimalState _currentState;
+        private const float _THRESHOLD = 0.3f;
+        
+        private IAnimalState _currentState;
         private NavMeshAgent _agent;
         public NavMeshAgent Agent => _agent;
         
@@ -13,18 +18,14 @@ namespace Animals {
         
         private GameObject _gameObject;
 
-        public readonly AnimalStateIdle Idle = new AnimalStateIdle();
-        public readonly AnimalStateAttracted Attracted = new AnimalStateAttracted();
+        private readonly Dictionary<Type, IAnimalState> _states = new();
 
-        private const float _THRESHOLD = 0.3f;
-        
         private void Start() {
             _agent = GetComponent<NavMeshAgent>();
             _agent.updateRotation = false;
             _agent.updateUpAxis = false;
             _animator = GetComponent<Animator>();
             _gameObject = gameObject;
-            Switch(Idle);
         }
 
         private void Update() {
@@ -46,9 +47,19 @@ namespace Animals {
             _currentState.OnCollisionEnter(this, collision);
         }
 
-        public void Switch(AnimalState state) {
+        private void OnMouseOver()
+        {
+            _currentState.OnMouseOver(this);
+        }
+
+        public void Switch(IAnimalState state) {
             _currentState = state;
             _currentState.OnEnter(this);
+        }
+
+        public void Switch<T>() where T : class, IAnimalState
+        {
+            Switch(GetState<T>());
         }
 
         private void Flip() {
@@ -57,5 +68,34 @@ namespace Animals {
             _gameObject.transform.localScale = currentScale;
             _lookRight = !_lookRight;
         }
+        
+        #region STATES
+
+        public IAnimalState GetState(Type type)
+        {
+            if (!_states.TryGetValue(type, out var result))
+            {
+                throw new Exception($"State is not present: {type.FullName}");
+            }
+
+            return result;
+        }
+        
+        public T GetState<T>() where T : class, IAnimalState
+        {
+            if (!_states.TryGetValue(typeof(T), out var result))
+            {
+                throw new Exception($"State is not present: {typeof(T).FullName}");
+            }
+
+            return (T)result;
+        }
+
+        public void AddState(IAnimalState state)
+        {
+            _states.Add(state.GetType(), state);
+        }
+        
+        #endregion
     }
 }
