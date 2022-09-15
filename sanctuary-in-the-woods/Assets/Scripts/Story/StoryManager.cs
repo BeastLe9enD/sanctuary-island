@@ -8,13 +8,20 @@ namespace Story
     {
         private const float _maxVolume = 0.6f;
         
-        public int Time; //von 0 bis 2400
-
+        public double Time;
+        public double TimeScale = 1.0f;
+        
         private Volume _volume;
 
-        private void UpdateVolumeWeight()
+        private void UpdateTime()
         {
-            var value = Math.Clamp((Math.Pow(Time / 100.0 - 13.9, 6.0) / 980000.0), 0.0, 1.0);
+            Time += 0.001 * TimeScale;
+            if (Time >= 24.0)
+            {
+                Time = 0.0;
+            }
+            
+            var value = Math.Clamp((Math.Pow(Time - 13.9, 6.0) / 980000.0), 0.0, 1.0);
             _volume.weight = (float)value * _maxVolume;
             
             Debug.Log(Time + ":" + _volume.weight);
@@ -27,12 +34,7 @@ namespace Story
         
         void FixedUpdate()
         {
-            if (++Time == 2400)
-            {
-                Time = 0;
-            }
-            
-            UpdateVolumeWeight();
+            UpdateTime();
         }
     }
 }
