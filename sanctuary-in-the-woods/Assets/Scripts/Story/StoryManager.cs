@@ -34,5 +34,16 @@ namespace Story
         {
             UpdateTime();
         }
+
+
+        public bool CanSleep()
+        {
+            return true;
+        }
+        public void HandleMorning()
+        {
+            Time = 8.0f;
+            
+        }
     }
 }
