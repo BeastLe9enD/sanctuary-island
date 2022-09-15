@@ -1,8 +1,6 @@
-using System;
 using Inventory;
 using UnityEngine;
-using Util;
-using URandom = Unity.Mathematics.Random;
+using Utils;
 
 namespace Objects {
     public class ItemDropper : MonoBehaviour {
@@ -10,9 +8,9 @@ namespace Objects {
         public int Count;
         public float DropRadius;
 
-        private Vector3 CreatePosition(Vector3 old) {
-            var random = new URandom();
-            random.InitState((uint)DateTime.Now.Ticks);
+        private Vector3 CreatePosition(Vector3 old)
+        {
+            var random = RamdomUtils.GetRandom();
             
             Vector3 position;
 
@@ -25,10 +23,10 @@ namespace Objects {
             return position;
         }
     
-        public void DropItems() {
-            var random = new URandom();
-            random.InitState((uint)DateTime.Now.Ticks);
-            
+        public void DropItems()
+        {
+            var random = RamdomUtils.GetRandom();
+
             for (var i = 0; i < Count; i++) {
                 var dropObject = new GameObject();
 

@@ -53,7 +53,7 @@ namespace Objects
         
         private void OnMouseOver()
         {
-            if (!Input.GetMouseButtonDown(1)) return;
+            if (!Input.GetMouseButtonDown(0)) return;
             if (_state != State.Mature) return;
 
             var random = new URandom((uint)DateTime.Now.Ticks);

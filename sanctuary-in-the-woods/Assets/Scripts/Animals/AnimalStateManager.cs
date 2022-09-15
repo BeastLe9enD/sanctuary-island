@@ -17,7 +17,7 @@ namespace Animals {
         public readonly AnimalStateIdle Idle = new AnimalStateIdle();
         public readonly AnimalStateAttracted Attracted = new AnimalStateAttracted();
 
-        private const float _THRESHOLD = 0.1f;
+        private const float _THRESHOLD = 0.3f;
         
         private void Start() {
             _agent = GetComponent<NavMeshAgent>();

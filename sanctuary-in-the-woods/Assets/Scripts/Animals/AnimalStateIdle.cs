@@ -1,8 +1,7 @@
 using System;
 using Objects;
 using UnityEngine;
-using UnityEngine.AI;
-using Util;
+using Utils;
 using URandom = Unity.Mathematics.Random;
 
 namespace Animals {
