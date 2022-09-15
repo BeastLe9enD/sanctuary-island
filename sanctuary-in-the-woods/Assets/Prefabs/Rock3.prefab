@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -3167388621518678933}
   - component: {fileID: -1107450172718973987}
   - component: {fileID: 1794296256977366658}
+  - component: {fileID: 7997194643747112411}
   m_Layer: 0
   m_Name: Rock3
   m_TagString: Untagged
@@ -146,3 +147,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf81aeede60a4f0bb8b29cd23f157b79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7997194643747112411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9188301204525901243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
