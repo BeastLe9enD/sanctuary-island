@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Inventory;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -9,29 +10,52 @@ public class Player : MonoBehaviour
     private Rigidbody2D Rigidbody;
     private Vector2 PlayerDirection;
     private Tilemap TopTilemap;
+    
+    private Animator _animator;
+    private static readonly int IsWalking = Animator.StringToHash("isWalking");
+    private static readonly int Interact = Animator.StringToHash("interact");
+    private static readonly int WalkBack = Animator.StringToHash("walkBack");
+    private bool _lookRight;
+    private const float _THRESHOLD = 0.3f;
+        
+    private GameObject _gameObject;
 
-    void Start() {
+    private void Start() {
         Rigidbody = gameObject.AddComponent<Rigidbody2D>();
         Rigidbody.gravityScale = 0.0f;
         Rigidbody.freezeRotation = true;
+        _animator = GetComponent<Animator>();
+        _gameObject = gameObject;
 
         TopTilemap = GameObject.Find("Top").GetComponent<Tilemap>();
     }
 
-    void Movement() {
+    private void Movement() {
         PlayerDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        _animator.SetBool(IsWalking, PlayerDirection != Vector2.zero);
+        _animator.SetBool(WalkBack, PlayerDirection.y > _THRESHOLD);
+        if (PlayerDirection.x > _THRESHOLD && !_lookRight) {
+            Flip();
+        }
+        else if (PlayerDirection.x < -_THRESHOLD && _lookRight) {
+            Flip();
+        }
     }
 
-    void DestroyTopTiles() {
-        if (!Input.GetMouseButtonDown(0)) return;
+    private IEnumerator DestroyTopTiles() {
+        if (!Input.GetMouseButtonDown(0)) yield break;
 
+        _animator.SetTrigger(Interact);
+        // wait: for better synchronization with the animation
+        yield return new WaitForSeconds(0.3f);
+        
         var (tile_pos, world_pos) = GetTileOnMouse();
         var distance = MathF.Abs(Vector2.Distance(world_pos, transform.position));
 
-        if (distance > 2.0f) return;
+        if (distance > 2.0f) yield break;
         
         var oldTile = TopTilemap.GetTile(tile_pos);
-        if (oldTile == null) return;
+        if (oldTile == null) yield break;
 
         var itemRegistry = FindObjectOfType<ItemRegistry>();
         var playerInventory = FindObjectOfType<PlayerInventory>();
@@ -40,11 +64,16 @@ public class Player : MonoBehaviour
         
         TopTilemap.SetTile(tile_pos, null);
     }
+
+    private IEnumerator PetAnimal() {
+        if (!Input.GetMouseButtonDown(0)) yield break;
+        // TODO: add animation (3 loops of Interact), behaviour of animal
+    }
     
     // Update is called once per frame
     void Update() {
         Movement();
-        DestroyTopTiles();
+        StartCoroutine(DestroyTopTiles());
 
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -61,5 +90,12 @@ public class Player : MonoBehaviour
     private (Vector3Int, Vector2) GetTileOnMouse() {
         var mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         return (TopTilemap.WorldToCell(mouseWorldPos), new Vector2(mouseWorldPos.x, mouseWorldPos.y));
+    }
+    
+    private void Flip() {
+        var currentScale = gameObject.transform.localScale;
+        currentScale.x *= -1;
+        _gameObject.transform.localScale = currentScale;
+        _lookRight = !_lookRight;
     }
 }
