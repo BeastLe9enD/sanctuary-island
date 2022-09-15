@@ -31,6 +31,11 @@ namespace Story
         public GameObject Rabbit;
         
         #endregion
+        
+        #region STATES
+
+        public bool FirstAnimalTamed;
+        #endregion
 
         private PopupManager _popupManager;
         

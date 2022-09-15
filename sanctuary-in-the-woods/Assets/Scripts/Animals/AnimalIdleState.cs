@@ -1,18 +1,22 @@
 using System;
 using Inventory;
+using Story;
+using UI;
 using UnityEngine;
 using Utils;
 using Object = UnityEngine.Object;
 using URandom = Unity.Mathematics.Random;
 
 namespace Animals {
-    public class AnimalIdleState : IAnimalState {
+    public sealed class AnimalIdleState : IAnimalState {
         private const float WAIT_TIME = 1.0f;
 
         private PlayerInventory _playerInventory;
+        private ParticleSystem _particleSystem;
+        private StoryManager _storyManager;
+        private PopupManager _popupManager;
 
         private StackedItem _tameStack;
-        private Type _tamedStateType;
 
         private Vector2 _origin;
         private float _radius;
@@ -23,10 +27,12 @@ namespace Animals {
 
         private float _moveStartTime;
 
-        public AnimalIdleState(StackedItem tameStack, Type tamedStateType)
+        private bool _isTamed;
+        private float _tameStart;
+
+        public AnimalIdleState(StackedItem tameStack)
         {
             _tameStack = tameStack;
-            _tamedStateType = tamedStateType;
         }
         
         private void GenerateNewTask(Vector2 srcPosition, AnimalStateManager manager) {
@@ -49,11 +55,18 @@ namespace Animals {
             }
         }
 
-        public void OnEnter(AnimalStateManager manager) {
+        public void OnEnter(AnimalStateManager manager)
+        {
+            _isTamed = false;
+            _tameStart = 0.0f;
+            
             _origin = manager.transform.position;
             _radius = 5.0f;
 
             _playerInventory = Object.FindObjectOfType<PlayerInventory>();
+            _particleSystem = manager.GetComponent<ParticleSystem>();
+            _storyManager = Object.FindObjectOfType<StoryManager>();
+            _popupManager = Object.FindObjectOfType<PopupManager>();
 
             GenerateNewTask(_origin, manager);
         }
@@ -63,6 +76,25 @@ namespace Animals {
         }
 
         public void OnFixedUpdate(AnimalStateManager manager) {
+            if (_isTamed)
+            {
+                if (Time.time - _tameStart >= 3.0)
+                {
+                    if (!_storyManager.FirstAnimalTamed)
+                    {
+                        _popupManager.Enqueue("After the animal has been tamed, it remains sitting on the ground.");
+                        _popupManager.Enqueue("You can right-click the animal to make it follow you.");
+                        _popupManager.Enqueue("If you press the right mouse button again, the animal will stay seated again.");
+                        _storyManager.FirstAnimalTamed = true;
+                    }
+                    
+                    _particleSystem.Stop();
+                    manager.Switch<AnimalTamedState>();
+                }
+
+                return;
+            }
+            
             Vector2 playerPosition = manager.transform.position;
 
             var agent = manager.Agent;
@@ -103,10 +135,10 @@ namespace Animals {
             }
             
             _playerInventory.Remove(_tameStack);
-            
-            Debug.Log("TAMED");
 
-            manager.Switch(manager.GetState(_tamedStateType));
+            _isTamed = true;
+            _tameStart = Time.time;
+            _particleSystem.Play();
         }
     }
 }
