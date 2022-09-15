@@ -40,7 +40,7 @@ namespace Animals {
                 return;
             }
             
-            Debug.Log($"Setting destination to {_requestedPosition}");
+            //Debug.Log($"Setting destination to {_requestedPosition}");
         }
 
         private void CheckForAttraction(AnimalStateManager manager) {
@@ -86,7 +86,7 @@ namespace Animals {
             Vector2 playerPosition = manager.transform.position;
 
             var agent = manager.Agent;
-            Debug.Log(agent.remainingDistance + ":" + (Time.time - _moveStartTime));
+            //Debug.Log(agent.remainingDistance + ":" + (Time.time - _moveStartTime));
 
             var shouldWait = true;
             if (agent.remainingDistance >= agent.stoppingDistance)
