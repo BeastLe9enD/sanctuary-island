@@ -29,7 +29,7 @@ namespace UI {
         private Button _button;
         private GameObject _panel;
 
-        public void Enqueue(string name, Action action) {
+        public void Enqueue(string name, Action action = null) {
             _tasks.Enqueue(new Task(name, action));
         }
 

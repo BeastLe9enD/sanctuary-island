@@ -1,5 +1,6 @@
 ﻿using System;
 using Objects;
+using UI;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -29,6 +30,8 @@ namespace Story
         public GameObject Rabbit;
         
         #endregion
+
+        private PopupManager _popupManager;
         
         private void UpdateTime()
         {
@@ -51,6 +54,9 @@ namespace Story
             _volume = FindObjectOfType<Volume>();
             _dayText = GameObject.Find("DayText").GetComponent<Text>();
             _timeText = GameObject.Find("TimeText").GetComponent<Text>();
+
+            _popupManager = FindObjectOfType<PopupManager>();
+            _popupManager.Enqueue("Willkommen auf der Insel. Du musst dich hier um die Tiere kümmern.");
         }
         
         void FixedUpdate()
