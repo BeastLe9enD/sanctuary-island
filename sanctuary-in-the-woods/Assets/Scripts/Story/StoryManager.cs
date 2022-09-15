@@ -89,9 +89,9 @@ namespace Story
             
             for (var i = 0; i < 2; i++)
             {
-                Debug.Log("SPAWN RABBIT");
-                var rabbit = Instantiate(Rabbit);
+                weedStorage.Clear();
                 
+                var rabbit = Instantiate(Rabbit);
                 var targetPos = sourcePos + new Vector3(random.NextFloat(-2, 2), random.NextFloat(-2, 2));
 
                 Instantiate(Rabbit, targetPos, Quaternion.identity);
