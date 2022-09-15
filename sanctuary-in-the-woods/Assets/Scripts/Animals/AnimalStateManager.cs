@@ -51,7 +51,7 @@ namespace Animals {
         }
 
         private void Flip() {
-            Debug.Log("flip");
+            return;
             var currentScale = gameObject.transform.localScale;
             currentScale.x *= -1;
             _gameObject.transform.localScale = currentScale;

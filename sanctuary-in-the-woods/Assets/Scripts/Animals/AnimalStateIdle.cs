@@ -23,7 +23,7 @@ namespace Animals {
             random.InitState((uint)DateTime.Now.Ticks);
             
             var angle = random.NextFloat(Mathf.PI * 2.0f);
-            var length = random.NextFloat(_radius);
+            var length = random.NextFloat(1.0f, _radius);
             
             _requestedPosition = _origin + new Vector2(Mathf.Cos(angle) * length, Mathf.Sin(angle) * length);
 
