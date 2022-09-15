@@ -18,8 +18,7 @@ namespace Animals {
         private float _timeToWait;
 
         private float _moveStartTime;
-
-
+        
         private void GenerateNewTask(Vector2 srcPosition, AnimalStateManager manager) {
             var random = new URandom();
             random.InitState((uint)DateTime.Now.Ticks);

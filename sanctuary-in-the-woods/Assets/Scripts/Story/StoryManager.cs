@@ -23,8 +23,6 @@ namespace Story
             
             var value = Math.Clamp((Math.Pow(Time - 13.9, 6.0) / 980000.0), 0.0, 1.0);
             _volume.weight = (float)value * _maxVolume;
-            
-            Debug.Log(Time + ":" + _volume.weight);
         }
 
         void Start()
