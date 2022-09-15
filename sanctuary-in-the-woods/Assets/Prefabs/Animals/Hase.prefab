@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6363077336674202287}
   - component: {fileID: 4413639606375808235}
   - component: {fileID: 742747155}
+  - component: {fileID: -3885338465954302043}
   m_Layer: 0
   m_Name: Hase
   m_TagString: Untagged
@@ -141,3 +142,15 @@ NavMeshAgent:
   m_BaseOffset: 7.4999995
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-3885338465954302043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6363077336674202286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59a0afeac2ac49a9a1a78a4169fd6810, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

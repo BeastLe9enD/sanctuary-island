@@ -1,5 +1,6 @@
 ﻿using System;
 using Objects;
+using Objects.Animals;
 using UI;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -56,7 +57,11 @@ namespace Story
             _timeText = GameObject.Find("TimeText").GetComponent<Text>();
 
             _popupManager = FindObjectOfType<PopupManager>();
-            _popupManager.Enqueue("Willkommen auf der Insel. Du musst dich hier um die Tiere kümmern.");
+            _popupManager.Enqueue("Hey! Welcome to the island.");
+            _popupManager.Enqueue("At the moment you are alone, but there are many great animals that you are responsible for.");
+            _popupManager.Enqueue("You can collect weed and put it into the feed jug to attract rabbits.");
+            _popupManager.Enqueue("And don't forget to sleep. Click on the tree house after 10am sleep until morning.");
+            _popupManager.Enqueue("The rabbits will already be waiting for you the next day.");
         }
         
         void FixedUpdate()
@@ -82,7 +87,11 @@ namespace Story
 
         private void HandleRabbits()
         {
-            //TODO: if rabits exists, return
+            var rabbits = FindObjectsOfType<RabbitStorage>();
+            if (rabbits.Length > 0)
+            {
+                return;
+            }
             
             var weedStorage = FindObjectOfType<WeedStorage>();
             if (weedStorage.Slot == null)
@@ -97,11 +106,16 @@ namespace Story
             {
                 weedStorage.Clear();
                 
-                var rabbit = Instantiate(Rabbit);
                 var targetPos = sourcePos + new Vector3(random.NextFloat(-2, 2), random.NextFloat(-2, 2));
 
                 Instantiate(Rabbit, targetPos, Quaternion.identity);
             }
+            
+            _popupManager.Enqueue("Oh, the rabbits are here. However, they are not yet tamed.");
+            _popupManager.Enqueue("You can tame the animals by crafting Wild Food.");
+            _popupManager.Enqueue("To craft Wild Food, you must combine Weeds with a Bag.");
+            _popupManager.Enqueue("You make a bag from two weeds.");
+            _popupManager.Enqueue("You can open the crafting menu by pressing E");
         }
         
         #endregion

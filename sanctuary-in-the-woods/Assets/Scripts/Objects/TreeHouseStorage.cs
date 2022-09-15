@@ -1,4 +1,6 @@
-﻿using Story;
+﻿using System;
+using Story;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,8 +8,11 @@ namespace Objects
 {
     public class TreeHouseStorage : MonoBehaviour
     {
+        private const string _sleepText = "You can only sleep after 10am!";
+        
         private Player _player;
         private StoryManager _storyManager;
+        private PopupManager _popupManager;
         private Image _sleepImage;
         
         private bool _sleeping = false;
@@ -25,6 +30,13 @@ namespace Objects
 
             if (!_storyManager.CanSleep())
             {
+                var lastTask = _popupManager.LastTask;
+                Debug.Log((lastTask == null));
+                if (lastTask == null || lastTask.Text != _sleepText)
+                {
+                    _popupManager.Enqueue(_sleepText);
+                    Debug.Log("ENQ");
+                }
                 return;
             }
 
@@ -39,6 +51,7 @@ namespace Objects
             _player = FindObjectOfType<Player>();
             _sleepImage = GameObject.Find("SleepPanel").GetComponent<Image>();
             _storyManager = FindObjectOfType<StoryManager>();
+            _popupManager = FindObjectOfType<PopupManager>();
         }
         
         void Update()

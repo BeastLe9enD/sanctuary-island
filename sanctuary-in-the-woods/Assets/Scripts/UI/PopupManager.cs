@@ -1,16 +1,17 @@
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI { 
     public class PopupManager : MonoBehaviour {
-        private class Task {
-            public readonly string Name;
+        public class Task {
+            public readonly string Text;
             public readonly Action Action;
 
             public Task(string name, Action action) {
-                Name = name;
+                Text = name;
                 Action = action;
             }
         }
@@ -22,15 +23,15 @@ namespace UI {
         private void SetCurrent(Task current) {
             _current = current;
 
-            _text.text = _current.Name;
+            _text.text = _current.Text;
         }
    
         private Text _text;
         private Button _button;
         private GameObject _panel;
 
-        public void Enqueue(string name, Action action = null) {
-            _tasks.Enqueue(new Task(name, action));
+        public void Enqueue(string text, Action action = null) {
+            _tasks.Enqueue(new Task(text, action));
         }
 
         private void Start() {
@@ -58,5 +59,7 @@ namespace UI {
                 _panel.SetActive(true);
             }
         }
+
+        [CanBeNull] public Task LastTask => _current;
     }
 }
