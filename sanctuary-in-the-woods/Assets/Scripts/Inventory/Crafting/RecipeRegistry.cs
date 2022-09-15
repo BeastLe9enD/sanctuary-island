@@ -14,7 +14,7 @@ namespace Inventory.Crafting
         {
             _recipes.Add(recipe);
         }
-
+        
         public RecipeRegistry(ItemRegistry itemRegistry)
         {
             //Add recipes here
@@ -22,6 +22,7 @@ namespace Inventory.Crafting
             AddRecipe(new SimpleCraftingRecipe(new StackedItem(itemRegistry.WeedFeed), new StackedItem(itemRegistry.Bag), new StackedItem(itemRegistry.Weed, 2)));
             AddRecipe(new SimpleCraftingRecipe(new StackedItem(itemRegistry.BerryFeed), new StackedItem(itemRegistry.Bag), new StackedItem(itemRegistry.Berries, 2)));
             AddRecipe(new SimpleCraftingRecipe(new StackedItem(itemRegistry.SeedFeed), new StackedItem(itemRegistry.Bag), new StackedItem(itemRegistry.Seeds, 2)));
+            AddRecipe(new SimpleCraftingRecipe(new StackedItem(itemRegistry.BirdHouse), new StackedItem(itemRegistry.Wood, 10), new StackedItem(itemRegistry.Weed, 2)));
         }
 
         /// <summary>

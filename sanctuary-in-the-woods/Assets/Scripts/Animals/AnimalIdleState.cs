@@ -128,7 +128,7 @@ namespace Animals {
 
         public void OnMouseOver(AnimalStateManager manager)
         {
-            if (!Input.GetMouseButtonDown(0)) return;
+            if (!Input.GetMouseButtonDown(0) || _isTamed) return;
 
             if (!_playerInventory.CanRemove(_tameStack))
             {

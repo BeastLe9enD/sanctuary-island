@@ -7,6 +7,10 @@ using UnityEngine.Tilemaps;
 public class Player : MonoBehaviour
 {
     public float PlayerSpeed = 5.0f;
+
+    private ItemRegistry _itemRegistry;
+    private PlayerInventory _playerInventory;
+    
     private Rigidbody2D Rigidbody;
     private Vector2 PlayerDirection;
     private Tilemap TopTilemap;
@@ -19,15 +23,27 @@ public class Player : MonoBehaviour
     private const float _THRESHOLD = 0.3f;
         
     private GameObject _gameObject;
+    
+    #region PREFABS
 
-    private void Start() {
+    public GameObject BirdHouse;
+    #endregion
+
+    private void Start()
+    {
+        _itemRegistry = FindObjectOfType<ItemRegistry>();
+        _playerInventory = FindObjectOfType<PlayerInventory>();
+        
         Rigidbody = gameObject.AddComponent<Rigidbody2D>();
         Rigidbody.gravityScale = 0.0f;
         Rigidbody.freezeRotation = true;
+        
         _animator = GetComponent<Animator>();
         _gameObject = gameObject;
 
         TopTilemap = GameObject.Find("Top").GetComponent<Tilemap>();
+        
+        //_playerInventory.Add(new StackedItem(_itemRegistry.BirdHouse)); //TODO: GEHT SOFORT LOS
     }
 
     private void Movement() {
@@ -85,6 +101,11 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate() {
         Rigidbody.velocity = new Vector2(PlayerDirection.x * PlayerSpeed, PlayerDirection.y * PlayerSpeed);
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            HandleObjectPlacement();
+        }
     }
 
     private (Vector3Int, Vector2) GetTileOnMouse() {
@@ -97,5 +118,29 @@ public class Player : MonoBehaviour
         currentScale.x *= -1;
         _gameObject.transform.localScale = currentScale;
         _lookRight = !_lookRight;
+    }
+
+    private void HandleObjectPlacement()
+    {
+        if (HandleBirdHousePlacement())
+        {
+            return;
+        }
+    }
+
+    private bool HandleBirdHousePlacement()
+    {
+        var stack = new StackedItem(_itemRegistry.BirdHouse);
+        if (!_playerInventory.CanRemove(stack))
+        {
+            return false;
+        }
+
+        _playerInventory.Remove(stack);
+        
+        var targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Instantiate(BirdHouse, targetPos, Quaternion.identity);
+        
+        return true;
     }
 }
