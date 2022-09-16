@@ -3,6 +3,7 @@ using System.Collections;
 using Inventory;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Utils;
 
 public class Player : MonoBehaviour
 {
@@ -43,7 +44,7 @@ public class Player : MonoBehaviour
 
         TopTilemap = GameObject.Find("Top").GetComponent<Tilemap>();
         
-        _playerInventory.Add(new StackedItem(_itemRegistry.BirdHouse)); //TODO: GEHT SOFORT LOS
+        _playerInventory.Add(new StackedItem(_itemRegistry.SeedFeed, 16)); //TODO: GEHT SOFORT LOS
     }
 
     private void Movement() {
@@ -65,7 +66,7 @@ public class Player : MonoBehaviour
         // wait: for better synchronization with the animation
         yield return new WaitForSeconds(0.3f);
         
-        var (tile_pos, world_pos) = GetTileOnMouse();
+        var (tile_pos, world_pos) = TilemapUtils.GetTileOnMouse(TopTilemap);
         var distance = MathF.Abs(Vector2.Distance(world_pos, transform.position));
 
         if (distance > 2.0f) yield break;
@@ -108,10 +109,7 @@ public class Player : MonoBehaviour
         Rigidbody.velocity = new Vector2(PlayerDirection.x * PlayerSpeed, PlayerDirection.y * PlayerSpeed);
     }
 
-    private (Vector3Int, Vector2) GetTileOnMouse() {
-        var mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        return (TopTilemap.WorldToCell(mouseWorldPos), new Vector2(mouseWorldPos.x, mouseWorldPos.y));
-    }
+    
     
     private void Flip() {
         var currentScale = gameObject.transform.localScale;
