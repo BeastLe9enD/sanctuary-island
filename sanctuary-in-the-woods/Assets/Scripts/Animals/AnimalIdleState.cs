@@ -71,10 +71,6 @@ namespace Animals {
             GenerateNewTask(_origin, manager);
         }
 
-        public void OnUpdate(AnimalStateManager manager) {
-            
-        }
-
         public void OnFixedUpdate(AnimalStateManager manager) {
             if (_isTamed)
             {
@@ -123,8 +119,6 @@ namespace Animals {
 
             GenerateNewTask(playerPosition, manager);
         }
-
-        public void OnCollisionEnter(AnimalStateManager manager, Collision2D collision) { }
 
         public void OnMouseOver(AnimalStateManager manager)
         {
