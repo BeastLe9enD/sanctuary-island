@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 742747155}
   - component: {fileID: 3310187497475791484}
   - component: {fileID: 2466925731530514494}
+  - component: {fileID: -5734647516185400845}
   m_Layer: 0
   m_Name: Bear
   m_TagString: Untagged
@@ -4901,3 +4902,15 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-5734647516185400845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6363077336674202286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c54a1f3d376498188b2bdf35c9e7c74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
