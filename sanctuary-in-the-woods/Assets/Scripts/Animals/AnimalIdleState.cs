@@ -37,7 +37,7 @@ namespace Animals {
         
         private void GenerateNewTask(Vector2 srcPosition, AnimalStateManager manager) {
             var random = new URandom();
-            random.InitState((uint)DateTime.Now.Ticks);
+            random.InitState((uint)DateTime.Now.Ticks ^ (uint)srcPosition.GetHashCode());
             
             var angle = random.NextFloat(Mathf.PI * 2.0f);
             var length = random.NextFloat(1.0f, _radius);
