@@ -43,16 +43,6 @@ namespace Animals
             }
         }
 
-        public void OnFixedUpdate(AnimalStateManager manager)
-        {
-            
-        }
-
-        public void OnCollisionEnter(AnimalStateManager manager, Collision2D collision)
-        {
-            
-        }
-
         public void OnMouseOver(AnimalStateManager manager)
         {
             if (Input.GetMouseButtonDown(0))

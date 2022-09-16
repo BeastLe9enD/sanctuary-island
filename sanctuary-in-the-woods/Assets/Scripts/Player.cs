@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
 
         TopTilemap = GameObject.Find("Top").GetComponent<Tilemap>();
         
-        //_playerInventory.Add(new StackedItem(_itemRegistry.BirdHouse)); //TODO: GEHT SOFORT LOS
+        _playerInventory.Add(new StackedItem(_itemRegistry.BirdHouse)); //TODO: GEHT SOFORT LOS
     }
 
     private void Movement() {
@@ -139,7 +139,7 @@ public class Player : MonoBehaviour
         _playerInventory.Remove(stack);
         
         var targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Instantiate(BirdHouse, targetPos, Quaternion.identity);
+        Instantiate(BirdHouse, new Vector3(targetPos.x, targetPos.y, 1.0f), Quaternion.identity);
         
         return true;
     }

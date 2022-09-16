@@ -24,11 +24,6 @@ namespace Animals.Rabbits
             manager.Agent.SetDestination(_targetTree.transform.position);
         }
 
-        public void OnUpdate(AnimalStateManager manager)
-        {
-            
-        }
-
         public void OnFixedUpdate(AnimalStateManager manager)
         {
             if (manager.Agent.remainingDistance <= 1.0)
@@ -38,16 +33,6 @@ namespace Animals.Rabbits
                 
                 manager.Switch<AnimalTamedState>();
             }
-        }
-
-        public void OnCollisionEnter(AnimalStateManager manager, Collision2D collision)
-        {
-            
-        }
-
-        public void OnMouseOver(AnimalStateManager manager)
-        {
-            
         }
     }
 }
