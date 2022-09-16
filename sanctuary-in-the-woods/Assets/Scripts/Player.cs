@@ -44,13 +44,10 @@ public class Player : MonoBehaviour
         _gameObject = gameObject;
 
         TopTilemap = GameObject.Find("Top").GetComponent<Tilemap>();
-<<<<<<< HEAD
-        
+
         _playerInventory.Add(new StackedItem(_itemRegistry.SeedFeed, 16)); //TODO: GEHT SOFORT LOS
         _playerInventory.Add(new StackedItem(_itemRegistry.Seeds, 5));
         _playerInventory.Add(new StackedItem(_itemRegistry.BerryFeed, 16));
-=======
->>>>>>> cfeb1f36c458acdc311b38420af766519b813133
     }
 
     private void Movement() {
