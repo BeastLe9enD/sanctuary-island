@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 namespace Animals.Bears
 {
-    public class BearDestroyRockState : IAnimalState
+    public sealed class BearDestroyRockState : IAnimalState
     {
         private TileRegistry _tileRegistry;
 

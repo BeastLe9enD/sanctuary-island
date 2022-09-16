@@ -104,7 +104,7 @@ namespace Animals.Mole {
             _topSolid = GameObject.Find("TopSolid").GetComponent<Tilemap>();
             _top = GameObject.Find("Top").GetComponent<Tilemap>();
             
-            _tileRegistry = GameObject.FindObjectOfType<TileRegistry>();
+            _tileRegistry = Object.FindObjectOfType<TileRegistry>();
             
             manager.Agent.SetDestination(POND_POSITION);
         }
