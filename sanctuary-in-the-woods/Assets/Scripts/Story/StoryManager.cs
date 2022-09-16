@@ -165,6 +165,7 @@ namespace Story
         {
             _popupManager.Enqueue("Yaaay, the birds are here!");
             _popupManager.Enqueue("You can give them wild food and they will give you seeds in exchange.");
+            _popupManager.Enqueue("You can grow the seeds to make the bear appear on the next day.");
         }
 
         private void HandleBears()

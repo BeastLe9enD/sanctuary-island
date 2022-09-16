@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RegistryName: bird_house
   Name: Bird House
-  Sprite: {fileID: 21300000, guid: ad8320b9da5eead41b4d6f8dd494d31c, type: 3}
+  Sprite: {fileID: 21300000, guid: ae2be98eec6d816408a52493d2c6a237, type: 3}
   MaxStackSize: 1
