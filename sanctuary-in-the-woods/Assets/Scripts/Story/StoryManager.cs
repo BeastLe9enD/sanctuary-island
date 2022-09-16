@@ -36,6 +36,7 @@ namespace Story
         #region STATES
 
         public bool FirstAnimalTamed;
+        public bool FirstTreeCutDown;
         #endregion
 
         private PopupManager _popupManager;
