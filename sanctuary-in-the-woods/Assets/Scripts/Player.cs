@@ -44,9 +44,6 @@ public class Player : MonoBehaviour
         _gameObject = gameObject;
 
         TopTilemap = GameObject.Find("Top").GetComponent<Tilemap>();
-        
-        _playerInventory.Add(new StackedItem(_itemRegistry.SeedFeed, 16)); //TODO: GEHT SOFORT LOS
-        _playerInventory.Add(new StackedItem(_itemRegistry.Seeds, 5));
     }
 
     private void Movement() {
