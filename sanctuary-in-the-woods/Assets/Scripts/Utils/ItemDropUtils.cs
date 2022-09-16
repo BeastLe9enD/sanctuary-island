@@ -42,6 +42,7 @@ namespace Utils
                 spriteRenderer.sprite = stack.Item.Sprite;
 
                 var boxCollider2d = dropObject.AddComponent<BoxCollider2D>();
+                boxCollider2d.isTrigger = true;
             } 
         }
     }

@@ -1,19 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
+using Inventory;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Utils;
+using Object = UnityEngine.Object;
 
 namespace Animals.Bears
 {
     public sealed class BearDestroyRockState : IAnimalState
     {
+        private ItemRegistry _itemRegistry;
         private TileRegistry _tileRegistry;
+        private Tilemap _tilemap;
 
-        private Vector3Int _cellPosition;
-        private Vector3 _position;
+        private List<Vector3Int> _cellPositions;
 
-        private Vector3Int? FindTargetRock(Tilemap tilemap)
+        private List<Vector3Int> FindTargetRocks(Vector3 bearPos, Tilemap tilemap)
         {
             var availableTiles = new List<Vector3Int>();
 
@@ -38,29 +42,70 @@ namespace Animals.Bears
                 return null;
             }
 
-            return availableTiles.OrderBy(x => tilemap.CellToWorld(x).sqrMagnitude)
-                .First();
+            var ordered = availableTiles.OrderBy(x => Vector3.Distance(bearPos, tilemap.CellToWorld(x)));
+
+            var result = new List<Vector3Int>();
+
+            var numRocks = ordered.Count();
+            if (numRocks > 3)
+            {
+                numRocks = 3;
+            }
+
+            for (var i = 0; i < numRocks; i++)
+            {
+                result.Add(ordered.ElementAt(i));
+            }
+
+            return result;
         }
 
         public void OnEnter(AnimalStateManager manager)
         {
+            _itemRegistry = Object.FindObjectOfType<ItemRegistry>();
             _tileRegistry = Object.FindObjectOfType<TileRegistry>();
 
-            var tilemap = GameObject.Find("Top").GetComponent<Tilemap>();
+            _tilemap = GameObject.Find("TopSolid").GetComponent<Tilemap>();
 
-            var cellPosition = FindTargetRock(tilemap);
-            if (cellPosition == null)
+            _cellPositions = FindTargetRocks(manager.transform.position, _tilemap);
+            if (_cellPositions.Count == 0)
             {
                 return;
             }
-
-            _cellPosition = cellPosition.Value;
-            _position = tilemap.CellToWorld(_cellPosition);
+            
+            var worldPos = _tilemap.CellToWorld(_cellPositions.Last());
+            manager.Agent.SetDestination(worldPos);
         }
 
         public void OnFixedUpdate(AnimalStateManager manager)
         {
-            throw new System.NotImplementedException();
+            Debug.Log($"UPDATING: {_cellPositions.Count}");
+            
+            if (manager.Agent.remainingDistance < 2.0)
+            {
+                Debug.Log($"REMAINING_SIZE: {manager.Agent.remainingDistance}");
+                
+                _tilemap.SetTile(_cellPositions.Last(), null);
+                ItemDropUtils.DropItems(manager.transform.position, new StackedItem(_itemRegistry.Stone), 2.0f);
+
+                _cellPositions.RemoveAt(_cellPositions.Count - 1);
+
+                if (_cellPositions.Count == 0)
+                {
+                    Debug.Log("SWITCHED STATE");
+                    manager.Switch<AnimalTamedState>();
+                }
+                else
+                {
+                    Debug.Log("NOT SWITCHING");
+                    var worldPos = _tilemap.CellToWorld(_cellPositions.Last());
+                    manager.Agent.SetDestination(worldPos);
+                }
+            }
+            else
+            {
+                Debug.Log("NOT NEXT ENOUGH");
+            }
         }
     }
 }

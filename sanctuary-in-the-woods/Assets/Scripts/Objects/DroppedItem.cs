@@ -2,7 +2,9 @@ using Inventory;
 using UnityEngine;
 
 namespace Objects {
-    public class DroppedItem : MonoBehaviour {
+    public class DroppedItem : MonoBehaviour
+    {
+        private Player _player;
         private PlayerInventory _playerInventory;
         
         public Item Item;
@@ -11,12 +13,17 @@ namespace Objects {
             Item = item;
         }
 
-        private void Start() {
+        private void Start()
+        {
+            _player = FindObjectOfType<Player>();
             _playerInventory = GameObject.Find("PlayerInventory").GetComponent<PlayerInventory>();
         }
 
-        private void OnCollisionEnter2D(Collision2D collision) {
-            if (collision.gameObject.TryGetComponent<Player>(out var player)) {
+        void FixedUpdate()
+        {
+            var distance = Vector3.Distance(transform.position, _player.transform.position);
+            if (distance <= 3.0)
+            {
                 _playerInventory.Add(new StackedItem(Item));
                 Destroy(gameObject);
             }

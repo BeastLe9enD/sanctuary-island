@@ -7,5 +7,11 @@ namespace Utils {
             var result = NavMesh.SamplePosition(new Vector3(position.x, position.y, 0.0f), out var hit, 1.0f, NavMesh.AllAreas);
             return hit.hit;
         }
+        
+        public static void UpdateMesh()
+        {
+            var navMeshSurface2d = Object.FindObjectOfType<NavMeshSurface2d>();
+            navMeshSurface2d.BuildNavMeshAsync();
+        }
     }
 }

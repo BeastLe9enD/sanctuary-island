@@ -1,8 +1,7 @@
 using DefaultNamespace;
+using Story;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Tilemaps;
-using Utils;
 
 namespace Animals.Mole {
     public class MolePondBuildState : IAnimalState {
@@ -11,20 +10,15 @@ namespace Animals.Mole {
         private Tilemap _topSolid;
         private Tilemap _top;
         private TileRegistry _tileRegistry;
+        private StoryManager _storyManager;
         
-        private static readonly Vector2 POND_POSITION = new Vector2(-6.17f, -4.52f);
+        public static readonly Vector2 POND_POSITION = new Vector2(-6.17f, -4.52f);
 
         private void ChangeTile(Vector3Int position, TileBase tile) {
-            _bottom.SetTile(position, null);
             _top.SetTile(position, null);
             _topSolid.SetTile(position, null);
             
-            _bottomSolid.SetTile(position, tile);
-        }
-
-        private void UpdateNavMesh() {
-            var navMeshSurface2d = GameObject.FindObjectOfType<NavMeshSurface2d>();
-            navMeshSurface2d.BuildNavMeshAsync();
+            _bottom.SetTile(position, tile);
         }
 
         private void PlacePond() {
@@ -99,13 +93,19 @@ namespace Animals.Mole {
             ChangeTile(new Vector3Int(firstTile.x + 10, firstTile.y + 8, firstTile.z), _tileRegistry.Tile145);
         }
         public void OnEnter(AnimalStateManager manager) {
+            _tileRegistry = Object.FindObjectOfType<TileRegistry>();
+            _storyManager = Object.FindObjectOfType<StoryManager>();
+
+            if (_storyManager.PondPlaced)
+            {
+                manager.Switch<AnimalTamedState>();
+            }
+            
             _bottomSolid = GameObject.Find("BottomSolid").GetComponent<Tilemap>();
             _bottom = GameObject.Find("Bottom").GetComponent<Tilemap>();
             _topSolid = GameObject.Find("TopSolid").GetComponent<Tilemap>();
             _top = GameObject.Find("Top").GetComponent<Tilemap>();
-            
-            _tileRegistry = Object.FindObjectOfType<TileRegistry>();
-            
+
             manager.Agent.SetDestination(POND_POSITION);
         }
 
@@ -113,8 +113,8 @@ namespace Animals.Mole {
             if (manager.Agent.remainingDistance < 0.5f) {
                 manager.Agent.SetDestination(new Vector2(POND_POSITION.x - 3.0f, POND_POSITION.y));
                 PlacePond();
-                UpdateNavMesh();
-                
+                _storyManager.PondPlaced = true;
+
                 manager.Switch<AnimalTamedState>();
             }
         }

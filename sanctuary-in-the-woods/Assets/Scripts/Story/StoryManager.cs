@@ -1,9 +1,11 @@
 ﻿using System;
+using Animals.Mole;
 using Objects;
 using Objects.Animals;
 using UI;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using Utils;
 
@@ -32,6 +34,8 @@ namespace Story
         public GameObject Bird;
         public GameObject Bear;
         public GameObject BerryBush;
+        public GameObject Mole;
+        public GameObject Beaver;
         
         #endregion
         
@@ -39,6 +43,7 @@ namespace Story
 
         public bool FirstAnimalTamed;
         public bool FirstTreeCutDown;
+        public bool PondPlaced;
         #endregion
 
         private PopupManager _popupManager;
@@ -92,6 +97,8 @@ namespace Story
             HandleRabbits();
             HandleBirds();
             HandleBears();
+            HandleMoles();
+            HandleBeavers();
         }
         
         #region RABBITS
@@ -210,7 +217,62 @@ namespace Story
 
         private void ShowBearMessage()
         {
+            _popupManager.Enqueue("Oh, the bear is here!");
+            _popupManager.Enqueue("He can destroy little rocks if you feed him with weed feed.");
+            _popupManager.Enqueue("You can use the bear to clean the sand hill in the north east from stones.");
+            _popupManager.Enqueue("If you cleaned the sand hill, on the next day, the mole will appear there.");
+        }
+
+        private void HandleMoles()
+        {
+            var moles = FindObjectsOfType<MoleStorage>();
+            if (moles.Length > 0)
+            {
+                return;
+            }
+
+            var tilemap = GameObject.Find("TopSolid").GetComponent<Tilemap>();
             
+            for (var j = -28; j <= 20; j++)
+            {
+                for (var i = 62; i <= 73; i++)
+                {
+                    var position = new Vector3Int(i, j, 0);
+                    if (tilemap.GetTile(position) != null)
+                    {
+                        return;
+                    }
+                }
+            }
+
+            var worldPos = tilemap.CellToWorld(new Vector3Int(67, -24, 0));
+            Instantiate(Mole, worldPos, Quaternion.identity);
+            
+            ShowMoleMessage();
+        }
+
+        private void ShowMoleMessage()
+        {
+            _popupManager.Enqueue("The mole appeared on the sand hill!");
+            _popupManager.Enqueue("You can feed him with around 6 seed feed and he will build a pond.");
+            _popupManager.Enqueue("After sleeping, the beaver will appear on the pond build by the mole.");
+        }
+        
+        private void HandleBeavers() {
+            var beavers = FindObjectsOfType<BeaverStorage>();
+            if (beavers.Length > 0)
+            {
+                return;
+            }
+            
+            Instantiate(Beaver, MolePondBuildState.POND_POSITION, Quaternion.identity);
+
+            ShowBearMessage();
+        }
+
+        private void ShowBeaverMessage()
+        {
+            _popupManager.Enqueue("Yay! The beaver has arrived!");
         }
         
         #endregion

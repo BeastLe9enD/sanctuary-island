@@ -21,6 +21,8 @@ namespace Animals {
         private Vector2 _origin;
         private float _radius;
 
+        private bool _targetFound;
+
         private Vector2 _requestedPosition;
         private float _waitedTime;
         private float _timeToWait;
@@ -35,7 +37,7 @@ namespace Animals {
             _tameStack = tameStack;
         }
         
-        private void GenerateNewTask(Vector2 srcPosition, AnimalStateManager manager) {
+        private bool GenerateNewTask(Vector2 srcPosition, AnimalStateManager manager) {
             var random = new URandom();
             random.InitState((uint)DateTime.Now.Ticks ^ (uint)srcPosition.GetHashCode());
             
@@ -50,9 +52,12 @@ namespace Animals {
             
             manager.Agent.SetDestination(_requestedPosition);
 
-            if (!NavMeshUtils.IsAccessible(_requestedPosition)) {
-                GenerateNewTask(srcPosition, manager);
+            if (!NavMeshUtils.IsAccessible(_requestedPosition))
+            {
+                return false;
             }
+
+            return true;
         }
 
         public void OnEnter(AnimalStateManager manager)
@@ -67,7 +72,7 @@ namespace Animals {
             _particleSystem = manager.GetComponent<ParticleSystem>();
             _storyManager = Object.FindObjectOfType<StoryManager>();
             _popupManager = Object.FindObjectOfType<PopupManager>();
-            GenerateNewTask(_origin, manager);
+            _targetFound = GenerateNewTask(_origin, manager);
         }
 
         public void OnFixedUpdate(AnimalStateManager manager) {
@@ -89,6 +94,13 @@ namespace Animals {
                 }
 
                 return;
+            }
+
+            if (!_targetFound)
+            {
+                _origin = manager.transform.position;
+                _radius = 5.0f;
+                _targetFound = GenerateNewTask(_origin, manager);
             }
             
             Vector2 playerPosition = manager.transform.position;
