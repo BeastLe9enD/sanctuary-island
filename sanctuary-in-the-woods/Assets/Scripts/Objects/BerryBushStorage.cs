@@ -1,7 +1,6 @@
-using System;
 using Inventory;
 using UnityEngine;
-using URandom = Unity.Mathematics.Random;
+using Utils;
 
 namespace Objects
 {
@@ -56,7 +55,7 @@ namespace Objects
             if (!Input.GetMouseButtonDown(0)) return;
             if (_state != State.Mature) return;
 
-            var random = new URandom((uint)DateTime.Now.Ticks);
+            var random = RamdomUtils.GetRandom();
             var stack = new StackedItem(_itemRegistry.Berries, 1 + random.NextInt(2));
 
             if (_playerInventory.CanAdd(stack))

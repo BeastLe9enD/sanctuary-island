@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Objects.Animals
 {
-    public class RabbitStorage : MonoBehaviour
+    public sealed class RabbitStorage : MonoBehaviour
     {
         void Start()
         {
