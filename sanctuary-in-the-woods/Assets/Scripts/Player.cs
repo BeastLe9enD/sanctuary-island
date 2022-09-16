@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     #region PREFABS
 
     public GameObject BirdHouse;
+    public GameObject BerryPlant;
     #endregion
 
     private void Start()
@@ -45,6 +46,7 @@ public class Player : MonoBehaviour
         TopTilemap = GameObject.Find("Top").GetComponent<Tilemap>();
         
         _playerInventory.Add(new StackedItem(_itemRegistry.SeedFeed, 16)); //TODO: GEHT SOFORT LOS
+        _playerInventory.Add(new StackedItem(_itemRegistry.Seeds, 5));
     }
 
     private void Movement() {
@@ -108,8 +110,6 @@ public class Player : MonoBehaviour
     private void FixedUpdate() {
         Rigidbody.velocity = new Vector2(PlayerDirection.x * PlayerSpeed, PlayerDirection.y * PlayerSpeed);
     }
-
-    
     
     private void Flip() {
         var currentScale = gameObject.transform.localScale;
@@ -120,24 +120,31 @@ public class Player : MonoBehaviour
 
     private void HandleObjectPlacement()
     {
-        if (HandleBirdHousePlacement())
+        if (HandleSimpleObjectPlacement(new StackedItem(_itemRegistry.BirdHouse), BirdHouse))
+        {
+            return;
+        }
+        if (HandleSimpleObjectPlacement(new StackedItem(_itemRegistry.Seeds), BerryPlant))
         {
             return;
         }
     }
 
-    private bool HandleBirdHousePlacement()
+    private bool HandleSimpleObjectPlacement(StackedItem stack, GameObject targetObject)
     {
-        var stack = new StackedItem(_itemRegistry.BirdHouse);
         if (!_playerInventory.CanRemove(stack))
+        {
+            return false;
+        }
+        
+        var targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (!NavMeshUtils.IsAccessible(targetPos))
         {
             return false;
         }
 
         _playerInventory.Remove(stack);
-        
-        var targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Instantiate(BirdHouse, new Vector3(targetPos.x, targetPos.y, 1.0f), Quaternion.identity);
+        Instantiate(targetObject, new Vector3(targetPos.x, targetPos.y, 1.0f), Quaternion.identity);
         
         return true;
     }

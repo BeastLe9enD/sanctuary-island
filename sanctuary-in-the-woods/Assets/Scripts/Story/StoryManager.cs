@@ -30,6 +30,8 @@ namespace Story
 
         public GameObject Rabbit;
         public GameObject Bird;
+        public GameObject Bear;
+        public GameObject BerryBush;
         
         #endregion
         
@@ -89,6 +91,7 @@ namespace Story
 
             HandleRabbits();
             HandleBirds();
+            HandleBears();
         }
         
         #region RABBITS
@@ -162,6 +165,51 @@ namespace Story
         {
             _popupManager.Enqueue("Yaaay, the birds are here!");
             _popupManager.Enqueue("You can give them wild food and they will give you seeds in exchange.");
+        }
+
+        private void HandleBears()
+        {
+            var bears = FindObjectsOfType<BearStorage>();
+            if (bears.Length > 0)
+            {
+                return;
+            }
+
+            var berryPlants = FindObjectsOfType<BerryPlantStorage>();
+
+            var numPlants = berryPlants.Length;
+            if (numPlants == 0)
+            {
+                return;
+            }
+            
+            if (numPlants >= 4)
+            {
+                numPlants = 4;
+            }
+
+            for (var i = 0; i < berryPlants.Length; i++)
+            {
+                var berryPlant = berryPlants[i];
+
+                var targetPos = berryPlant.transform.position;
+
+                Destroy(berryPlant.gameObject);
+
+                Instantiate(BerryBush, targetPos, Quaternion.identity);
+
+                if (i <= numPlants)
+                {
+                    Instantiate(Bear, targetPos, Quaternion.identity);
+                }
+            }
+
+            ShowBearMessage();
+        }
+
+        private void ShowBearMessage()
+        {
+            
         }
         
         #endregion
