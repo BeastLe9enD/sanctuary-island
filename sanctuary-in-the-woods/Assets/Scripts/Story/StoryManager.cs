@@ -29,12 +29,14 @@ namespace Story
         #region ANIMALS
 
         public GameObject Rabbit;
+        public GameObject Bird;
         
         #endregion
         
         #region STATES
 
         public bool FirstAnimalTamed;
+        public bool FirstTreeCutDown;
         #endregion
 
         private PopupManager _popupManager;
@@ -86,6 +88,7 @@ namespace Story
             Time = 8.0f;
 
             HandleRabbits();
+            HandleBirds();
         }
         
         #region RABBITS
@@ -115,12 +118,50 @@ namespace Story
 
                 Instantiate(Rabbit, targetPos, Quaternion.identity);
             }
-            
+
+            ShowRabbitMessage();
+        }
+
+        private void ShowRabbitMessage()
+        {
             _popupManager.Enqueue("Oh, the rabbits are here. However, they are not yet tamed.");
             _popupManager.Enqueue("You can tame the animals by crafting Wild Food.");
             _popupManager.Enqueue("To craft Wild Food, you must combine Weeds with a Bag.");
             _popupManager.Enqueue("You make a bag from two weeds.");
             _popupManager.Enqueue("You can open the crafting menu by pressing E");
+        }
+        
+        private void HandleBirds()
+        {
+            var birds = FindObjectsOfType<BirdStorage>();
+            if (birds.Length > 0)
+            {
+                return;
+            }
+
+            var birdHouse = FindObjectOfType<BirdHouseStorage>();
+            if (birdHouse == null)
+            {
+                return;
+            }
+            
+            var random = RamdomUtils.GetRandom();
+            var sourcePos = birdHouse.transform.position;
+            
+            for (var i = 0; i < 3; i++)
+            {
+                var targetPos = sourcePos + new Vector3(random.NextFloat(-2, 2), random.NextFloat(-2, 2));
+
+                Instantiate(Bird, targetPos, Quaternion.identity);
+            }
+            
+            ShowBirdMessage();
+        }
+
+        private void ShowBirdMessage()
+        {
+            _popupManager.Enqueue("Yaaay, the birds are here!");
+            _popupManager.Enqueue("You can give them wild food and they will give you seeds in exchange.");
         }
         
         #endregion

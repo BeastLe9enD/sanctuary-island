@@ -67,7 +67,6 @@ namespace Animals {
             _particleSystem = manager.GetComponent<ParticleSystem>();
             _storyManager = Object.FindObjectOfType<StoryManager>();
             _popupManager = Object.FindObjectOfType<PopupManager>();
-
             GenerateNewTask(_origin, manager);
         }
 

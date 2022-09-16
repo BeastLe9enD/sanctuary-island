@@ -1,37 +1,31 @@
 ﻿using Inventory;
 using UnityEngine;
+using Utils;
 
 namespace Animals.Birds
 {
     public sealed class BirdTradeState : IAnimalState
     {
-        private ItemRegistry _itenRegistry;
+        private ItemRegistry _itemRegistry;
         private PlayerInventory _playerInventory;
+
+        private float _startTime;
         
         public void OnEnter(AnimalStateManager manager)
         {
-            _itenRegistry = Object.FindObjectOfType<ItemRegistry>();
+            _itemRegistry = Object.FindObjectOfType<ItemRegistry>();
             _playerInventory = Object.FindObjectOfType<PlayerInventory>();
-        }
 
-        public void OnUpdate(AnimalStateManager manager)
-        {
-            throw new System.NotImplementedException();
+            _startTime = Time.deltaTime;
         }
 
         public void OnFixedUpdate(AnimalStateManager manager)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void OnCollisionEnter(AnimalStateManager manager, Collision2D collision)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void OnMouseOver(AnimalStateManager manager)
-        {
-            throw new System.NotImplementedException();
+            if (Time.time - _startTime >= 2.0)
+            {
+                ItemDropUtils.DropItems(manager.transform.position, new StackedItem(_itemRegistry.Seeds), 2.0f);
+                manager.Switch<AnimalTamedState>();
+            }
         }
     }
 }
