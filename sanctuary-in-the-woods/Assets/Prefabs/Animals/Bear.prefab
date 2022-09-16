@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 3310187497475791484}
   - component: {fileID: 2466925731530514494}
   - component: {fileID: -5734647516185400845}
+  - component: {fileID: 6581645168347686986}
+  - component: {fileID: 8579115175840955316}
   m_Layer: 0
   m_Name: Bear
   m_TagString: Untagged
@@ -30,8 +32,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6363077336674202286}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.7044, y: -2.8604, z: 0}
-  m_LocalScale: {x: 0.15653159, y: 0.15839718, z: 0.12778088}
+  m_LocalPosition: {x: -8.381, y: -2.5331, z: 0}
+  m_LocalScale: {x: 0.19965626, y: 0.20203583, z: 0.1629847}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -4914,3 +4916,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c54a1f3d376498188b2bdf35c9e7c74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &6581645168347686986
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6363077336674202286}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 15, y: 15}
+    newSize: {x: 15, y: 15}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 15, y: 15}
+  m_EdgeRadius: 0
+--- !u!95 &8579115175840955316
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6363077336674202286}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 822ad91903e9a55478081e3015b128df, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
