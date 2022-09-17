@@ -26,6 +26,8 @@ namespace Animals.Flamingos
                 Object.Instantiate(palmTree, new Vector3(30.28f, -98.67f, 1.0f), Quaternion.identity);
                 Object.Instantiate(palmTree, new Vector3(37.64f, -94.31f, 1.0f), Quaternion.identity);
                 Object.Instantiate(palmTree, new Vector3(48.98f, -98.56f, 1.0f), Quaternion.identity);
+                
+                manager.Switch<AnimalTamedState>();
             }
         }
     }

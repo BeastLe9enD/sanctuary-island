@@ -104,7 +104,7 @@ MonoBehaviour:
   PlayerInventory: {fileID: 0}
   ItemRegistry: {fileID: 0}
   SpriteRenderer: {fileID: 0}
-  NotFilled: {fileID: 0}
+  NotFilled: {fileID: 21300000, guid: 7a2c45c8573ee46e9aa29af121fbddf0, type: 3}
   Filled: {fileID: 21300000, guid: da49451ff678049a89f1b8e634372067, type: 3}
 --- !u!61 &5206044092911899519
 BoxCollider2D:
