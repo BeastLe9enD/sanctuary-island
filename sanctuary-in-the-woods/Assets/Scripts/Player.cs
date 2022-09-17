@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
         var (tile_pos, world_pos) = TilemapUtils.GetTileOnMouse(TopTilemap);
         var distance = MathF.Abs(Vector2.Distance(world_pos, transform.position));
 
-        if (distance > 2.0f) yield break;
+        if (distance > 3.5f) yield break;
         
         var oldTile = TopTilemap.GetTile(tile_pos);
         if (oldTile == null) yield break;

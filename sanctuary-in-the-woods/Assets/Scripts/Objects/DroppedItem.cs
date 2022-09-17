@@ -19,14 +19,10 @@ namespace Objects {
             _playerInventory = GameObject.Find("PlayerInventory").GetComponent<PlayerInventory>();
         }
 
-        void FixedUpdate()
+        void OnTriggerEnter2D(Collider2D collider)
         {
-            var distance = Vector3.Distance(transform.position, _player.transform.position);
-            if (distance <= 3.0)
-            {
-                _playerInventory.Add(new StackedItem(Item));
-                Destroy(gameObject);
-            }
+            _playerInventory.Add(new StackedItem(Item));
+            Destroy(gameObject);
         }
     }
 }
