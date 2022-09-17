@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Objects;
 using UnityEngine;
+using Utils;
 
 namespace Animals.Dragons
 {
@@ -27,10 +28,10 @@ namespace Animals.Dragons
         public void OnMouseOver(AnimalStateManager manager)
         {
             Debug.Log(manager.Agent.remainingDistance);
-            if (manager.Agent.remainingDistance <= 5.0)
+            if (manager.Agent.remainingDistance <= 50.0)
             {
-                _icebergStorage.GetComponent<ItemDropper>().DropItems();
                 Object.Destroy(_icebergStorage.gameObject);
+                NavMeshUtils.UpdateMesh();
                 
                 manager.Switch<AnimalTamedState>();
             }

@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
 
         TopTilemap = GameObject.Find("Top").GetComponent<Tilemap>();
         
-        //_playerInventory.Add(new StackedItem(_itemRegistry.SeedFeed, 16));
+        //_playerInventory.Add(new StackedItem(_itemRegistry.WeedFeed, 16));
         //_playerInventory.Add(new StackedItem(_itemRegistry.BerryFeed, 16));
         //_playerInventory.Add(new StackedItem(_itemRegistry.Cake, 2));
     }

@@ -34,7 +34,7 @@ namespace Animals.Elephants
         public void OnMouseOver(AnimalStateManager manager)
         {
             Debug.Log(manager.Agent.remainingDistance);
-            if (manager.Agent.remainingDistance <= 40.0)
+            if (manager.Agent.remainingDistance <= 50.0)
             {
                 _rockStorage.GetComponent<ItemDropper>().DropItems();
                 Object.Destroy(_rockStorage.gameObject);
