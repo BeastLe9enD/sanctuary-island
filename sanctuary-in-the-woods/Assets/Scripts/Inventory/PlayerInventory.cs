@@ -9,7 +9,7 @@ namespace Inventory
     /// </summary>
     public sealed class PlayerInventory : MonoBehaviour
     {
-        [ItemCanBeNull] public readonly StackedItem[] Slots = new StackedItem[10];
+        [ItemCanBeNull] public readonly StackedItem[] Slots = new StackedItem[12];
 
         void Start()
         {

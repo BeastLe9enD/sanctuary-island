@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Inventory;
+using Objects;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Utils;
@@ -148,6 +149,13 @@ public class Player : MonoBehaviour
         if (!NavMeshUtils.IsAccessible(targetPos))
         {
             return false;
+        }
+
+        var berryPlants = FindObjectsOfType<BerryPlantStorage>();
+        foreach (var plant in berryPlants) {
+            if (Vector2.Distance(targetPos, plant.gameObject.transform.position) < 5.0f) {
+                return false;
+            }
         }
 
         _playerInventory.Remove(stack);
