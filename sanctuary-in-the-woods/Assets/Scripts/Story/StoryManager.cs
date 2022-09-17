@@ -185,10 +185,6 @@ namespace Story
         private void HandleBears()
         {
             var bears = FindObjectsOfType<BearStorage>();
-            if (bears.Length > 0)
-            {
-                return;
-            }
 
             var berryPlants = FindObjectsOfType<BerryPlantStorage>();
 
@@ -213,7 +209,7 @@ namespace Story
 
                 Instantiate(BerryBush, targetPos, Quaternion.identity);
 
-                if (i <= numPlants)
+                if (i <= numPlants && bears.Length == 0)
                 {
                     Instantiate(Bear, targetPos, Quaternion.identity);
                 }
