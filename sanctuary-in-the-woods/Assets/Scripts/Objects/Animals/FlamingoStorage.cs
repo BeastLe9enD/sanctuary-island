@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Objects.Animals
 {
-    public class FlamingoStorage : MonoBehaviour
+    public sealed class FlamingoStorage : MonoBehaviour
     {
         void Start()
         {

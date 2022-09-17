@@ -4,7 +4,7 @@ using Inventory;
 using UnityEngine;
 
 namespace Objects.Animals {
-    public class MoleStorage : MonoBehaviour {
+    public sealed class MoleStorage : MonoBehaviour {
         private void Start() {
             var itemRegistry = FindObjectOfType<ItemRegistry>();
 

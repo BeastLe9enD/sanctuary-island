@@ -4,7 +4,7 @@ using Inventory;
 using UnityEngine;
 
 namespace Objects.Animals {
-    public class BeaverStorage : MonoBehaviour {
+    public sealed class BeaverStorage : MonoBehaviour {
         public GameObject Bridge;
         private void Start() {
             var itemRegistry = FindObjectOfType<ItemRegistry>();

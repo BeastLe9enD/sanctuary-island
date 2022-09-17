@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Objects.Animals
 {
-    public class KangarooStorage : MonoBehaviour
+    public sealed class KangarooStorage : MonoBehaviour
     {
         void Start()
         {
