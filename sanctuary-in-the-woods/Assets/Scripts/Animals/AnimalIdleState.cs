@@ -1,5 +1,6 @@
 using System;
 using Inventory;
+using JetBrains.Annotations;
 using Story;
 using UI;
 using UnityEngine;
@@ -32,9 +33,12 @@ namespace Animals {
         private bool _isTamed;
         private float _tameStart;
 
-        public AnimalIdleState(StackedItem tameStack)
+        [CanBeNull] private Type _alternativeType;
+
+        public AnimalIdleState(StackedItem tameStack, [CanBeNull] Type alternativeType = null)
         {
             _tameStack = tameStack;
+            _alternativeType = alternativeType;
         }
         
         private bool GenerateNewTask(Vector2 srcPosition, AnimalStateManager manager) {
@@ -90,7 +94,15 @@ namespace Animals {
                     }
                     
                     _particleSystem.Stop();
-                    manager.Switch<AnimalTamedState>();
+
+                    if (_alternativeType == null)
+                    {
+                        manager.Switch<AnimalTamedState>();
+                    }
+                    else
+                    {
+                        manager.Switch(manager.GetState(_alternativeType));
+                    }
                 }
 
                 return;

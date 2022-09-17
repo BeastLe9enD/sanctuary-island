@@ -15,4 +15,4 @@ MonoBehaviour:
   RegistryName: weed
   Name: Unkraut
   Sprite: {fileID: 21300000, guid: 03a90ba89c5538d4f959734e940205be, type: 3}
-  MaxStackSize: 16
+  MaxStackSize: 64

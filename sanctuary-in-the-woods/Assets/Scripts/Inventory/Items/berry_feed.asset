@@ -15,4 +15,4 @@ MonoBehaviour:
   RegistryName: berry_feed
   Name: Berry Feed
   Sprite: {fileID: 21300000, guid: fbba840000f816740af93db318b3d0da, type: 3}
-  MaxStackSize: 16
+  MaxStackSize: 64
