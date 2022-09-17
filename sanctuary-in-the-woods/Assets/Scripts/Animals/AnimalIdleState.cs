@@ -82,7 +82,7 @@ namespace Animals {
         public void OnFixedUpdate(AnimalStateManager manager) {
             if (_isTamed)
             {
-                if (Time.time - _tameStart >= 3.0)
+                if (Time.time - _tameStart >= 1.0)
                 {
                     if (!_storyManager.FirstAnimalTamed)
                     {
