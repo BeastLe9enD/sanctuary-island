@@ -13,6 +13,7 @@ namespace Animals.Mole {
         private StoryManager _storyManager;
         
         public static readonly Vector2 POND_POSITION = new Vector2(-6.17f, -4.52f);
+        public static readonly Vector2 SECOND_POND_POSITION = new Vector2(-117.382f, -8.816619f);
 
         private void ChangeTile(Vector3Int position, TileBase tile) {
             _top.SetTile(position, null);
@@ -21,8 +22,8 @@ namespace Animals.Mole {
             _bottom.SetTile(position, tile);
         }
 
-        private void PlacePond() {
-            var firstTile = _bottomSolid.WorldToCell(POND_POSITION);
+        private void PlacePond(Vector2 worldPondPos) {
+            var firstTile = _bottomSolid.WorldToCell(worldPondPos);
             firstTile = new Vector3Int(firstTile.x + 4, firstTile.y - 4, firstTile.z);
 
             for (var y = 0; y < 9; y++) {
@@ -96,7 +97,7 @@ namespace Animals.Mole {
             _tileRegistry = Object.FindObjectOfType<TileRegistry>();
             _storyManager = Object.FindObjectOfType<StoryManager>();
 
-            if (_storyManager.PondPlaced)
+            if (_storyManager.PondPlaced && _storyManager.SecondPondPlaced)
             {
                 manager.Switch<AnimalTamedState>();
             }
@@ -106,16 +107,35 @@ namespace Animals.Mole {
             _topSolid = GameObject.Find("TopSolid").GetComponent<Tilemap>();
             _top = GameObject.Find("Top").GetComponent<Tilemap>();
 
-            manager.Agent.SetDestination(POND_POSITION);
+            if (_storyManager.PondPlaced)
+            {
+                manager.Agent.SetDestination(SECOND_POND_POSITION);
+            }
+            else
+            {
+                manager.Agent.SetDestination(POND_POSITION);
+            }
         }
 
         public void OnFixedUpdate(AnimalStateManager manager) {
-            if (manager.Agent.remainingDistance < 0.5f) {
-                manager.Agent.SetDestination(new Vector2(POND_POSITION.x - 3.0f, POND_POSITION.y));
-                PlacePond();
-                _storyManager.PondPlaced = true;
+            if (manager.Agent.remainingDistance < 0.5f)
+            {
+                var pondPosition = _storyManager.PondPlaced ? SECOND_POND_POSITION : POND_POSITION;
+                
+                manager.Agent.SetDestination(new Vector2(pondPosition.x - 3.0f, pondPosition.y));
 
-                manager.Switch<AnimalTamedState>();
+                if (!_storyManager.PondPlaced)
+                {
+                    PlacePond(POND_POSITION);
+                    _storyManager.PondPlaced = true;
+                }
+                else
+                {
+                    PlacePond(SECOND_POND_POSITION);
+                    _storyManager.SecondPondPlaced = true;
+                }
+                
+                manager.Switch<MoleTamedState>();
             }
         }
     }

@@ -15,4 +15,4 @@ MonoBehaviour:
   RegistryName: bag
   Name: Bag
   Sprite: {fileID: 21300000, guid: 7619b0044f0fd5e48b9915646596d57f, type: 3}
-  MaxStackSize: 8
+  MaxStackSize: 64

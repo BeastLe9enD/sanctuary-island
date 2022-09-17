@@ -28,5 +28,11 @@ namespace Objects {
                 Destroy(gameObject);
             }
         }
+
+        void OnTriggerEnter2D(Collider2D collider)
+        {
+            _playerInventory.Add(new StackedItem(Item));
+            Destroy(gameObject);
+        }
     }
 }

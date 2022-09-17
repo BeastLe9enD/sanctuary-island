@@ -44,12 +44,10 @@ public class Player : MonoBehaviour
         _gameObject = gameObject;
 
         TopTilemap = GameObject.Find("Top").GetComponent<Tilemap>();
-
-        _playerInventory.Add(new StackedItem(_itemRegistry.SeedFeed, 16)); //TODO: GEHT SOFORT LOS
-        _playerInventory.Add(new StackedItem(_itemRegistry.Seeds, 5));
+        
+        _playerInventory.Add(new StackedItem(_itemRegistry.SeedFeed, 16));
         _playerInventory.Add(new StackedItem(_itemRegistry.BerryFeed, 16));
-        _playerInventory.Add(new StackedItem(_itemRegistry.WeedFeed, 16));
-        _playerInventory.Add(new StackedItem(_itemRegistry.WeedFeed, 16));
+        _playerInventory.Add(new StackedItem(_itemRegistry.Cake, 2));
     }
 
     private void Movement() {
@@ -74,7 +72,7 @@ public class Player : MonoBehaviour
         var (tile_pos, world_pos) = TilemapUtils.GetTileOnMouse(TopTilemap);
         var distance = MathF.Abs(Vector2.Distance(world_pos, transform.position));
 
-        if (distance > 2.0f) yield break;
+        if (distance > 3.5f) yield break;
         
         var oldTile = TopTilemap.GetTile(tile_pos);
         if (oldTile == null) yield break;

@@ -15,4 +15,4 @@ MonoBehaviour:
   RegistryName: berries
   Name: Berries
   Sprite: {fileID: 21300000, guid: d20cbe45d2b8ea34fb1f3ccf7d38c651, type: 3}
-  MaxStackSize: 16
+  MaxStackSize: 64

@@ -9,8 +9,8 @@ namespace Objects.Animals {
             var itemRegistry = FindObjectOfType<ItemRegistry>();
 
             var stateManager = GetComponent<AnimalStateManager>();
-            stateManager.AddState(new AnimalIdleState(new StackedItem(itemRegistry.SeedFeed)));
-            stateManager.AddState(new AnimalTamedState(new StackedItem(itemRegistry.SeedFeed, 6), typeof(MolePondBuildState)));
+            stateManager.AddState(new AnimalIdleState(new StackedItem(itemRegistry.SeedFeed), typeof(MoleTamedState)));
+            stateManager.AddState(new MoleTamedState());
             stateManager.AddState(new MolePondBuildState());
             
             stateManager.Switch<AnimalIdleState>();

@@ -15,4 +15,4 @@ MonoBehaviour:
   RegistryName: cake
   Name: Cake
   Sprite: {fileID: 21300000, guid: 3a9dd795e98f81d46ae932ce999255ad, type: 3}
-  MaxStackSize: 1
+  MaxStackSize: 64

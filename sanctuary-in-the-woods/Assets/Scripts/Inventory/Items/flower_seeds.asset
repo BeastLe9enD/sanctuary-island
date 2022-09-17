@@ -15,4 +15,4 @@ MonoBehaviour:
   RegistryName: flower_seeds
   Name: Flower Seeds
   Sprite: {fileID: 21300000, guid: 5fc918ba15270154b927d2e21b52dc3a, type: 3}
-  MaxStackSize: 1
+  MaxStackSize: 64

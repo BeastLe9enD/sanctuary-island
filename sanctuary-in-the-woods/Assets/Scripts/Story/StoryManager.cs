@@ -36,6 +36,9 @@ namespace Story
         public GameObject BerryBush;
         public GameObject Mole;
         public GameObject Beaver;
+        public GameObject Flamingo;
+        public GameObject Elephant;
+        public GameObject PalmTree;
         
         #endregion
         
@@ -44,6 +47,8 @@ namespace Story
         public bool FirstAnimalTamed;
         public bool FirstTreeCutDown;
         public bool PondPlaced;
+        public bool SecondPondPlaced;
+        public bool FirstCakeCrafted;
         #endregion
 
         private PopupManager _popupManager;
@@ -99,6 +104,8 @@ namespace Story
             HandleBears();
             HandleMoles();
             HandleBeavers();
+            HandleFlamingos();
+            HandleElephants();
         }
         
         #region RABBITS
@@ -211,8 +218,6 @@ namespace Story
                     Instantiate(Bear, targetPos, Quaternion.identity);
                 }
             }
-
-            ShowBearMessage();
         }
 
         private void ShowBearMessage()
@@ -254,7 +259,8 @@ namespace Story
         private void ShowMoleMessage()
         {
             _popupManager.Enqueue("The mole appeared on the sand hill!");
-            _popupManager.Enqueue("You can feed him with around 6 seed feed and he will build a pond.");
+            _popupManager.Enqueue("You can tame him wit seed feed.");
+            _popupManager.Enqueue("After the mole has been tamed, you can give him 6 weed feed to build a pond.");
             _popupManager.Enqueue("After sleeping, the beaver will appear on the pond build by the mole.");
         }
         
@@ -264,17 +270,80 @@ namespace Story
             {
                 return;
             }
+
+            if (!PondPlaced)
+            {
+                return;
+            }
             
             Instantiate(Beaver, MolePondBuildState.POND_POSITION, Quaternion.identity);
 
-            ShowBearMessage();
+            ShowBeaverMessage();
         }
 
         private void ShowBeaverMessage()
         {
             _popupManager.Enqueue("Yay! The beaver has arrived!");
+            _popupManager.Enqueue("Sou can tame the beaver with berry feed.");
+            _popupManager.Enqueue("After being tamed, the beaver can be fed with 2 berry feed to build the bridge.");
+            _popupManager.Enqueue("This allows you to pass the river, where the kangaroo is already waiting for you.");
+            _popupManager.Enqueue("If you feed the kangaroo with all seed variants, it will give you a cake.");
         }
-        
+
+        private void HandleFlamingos()
+        {
+            var flamingos = FindObjectsOfType<FlamingoStorage>();
+            if (flamingos.Length > 0)
+            {
+                return;
+            }
+
+            if (!SecondPondPlaced)
+            {
+                return;
+            }
+            
+            Instantiate(Flamingo, MolePondBuildState.SECOND_POND_POSITION, Quaternion.identity);
+
+            ShowFlamingoMessage();
+        }
+
+        private void ShowFlamingoMessage()
+        {
+            _popupManager.Enqueue("The flamingo arrived!");
+            _popupManager.Enqueue("You can tame the flamingo with berry feed.");
+            _popupManager.Enqueue("Feed the flamingo 4 berry feed and it will make the oasis green again.");
+            _popupManager.Enqueue("When the oasis has been greened, the elephants will appear the next day.");
+        }
+
+        private void HandleElephants()
+        {
+            var elephants = FindObjectsOfType<ElephantStorage>();
+            if (elephants.Length > 0)
+            {
+                return;
+            }
+
+            var palmTrees = FindObjectsOfType<PalmTreeStorage>();
+            if (palmTrees.Length == 0)
+            {
+                return;
+            }
+
+            Instantiate(Elephant, new Vector3(23.01f, -90.0f, 1.0f), Quaternion.identity);
+            Instantiate(Elephant, new Vector3(30.28f, -95.0f, 1.0f), Quaternion.identity);
+            Instantiate(Elephant, new Vector3(37.64f, -100.0f, 1.0f), Quaternion.identity);
+            
+            ShowElephantMessage();
+        }
+
+        private void ShowElephantMessage()
+        {
+            _popupManager.Enqueue("The elephants have arrived!");
+            _popupManager.Enqueue("You can tame the elephants with berry feed.");
+            _popupManager.Enqueue("You can feed the elephants with berry feed to make them destroy the big rocks in the north.");
+        }
+
         #endregion
     }
 }

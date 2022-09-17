@@ -15,4 +15,4 @@ MonoBehaviour:
   RegistryName: seed_feed
   Name: Seed Feed
   Sprite: {fileID: 21300000, guid: e454509a392d45a4481b765455ad7a15, type: 3}
-  MaxStackSize: 16
+  MaxStackSize: 64

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -483935342748523523}
   - component: {fileID: 6587261373684010697}
   - component: {fileID: -4801639344111591128}
+  - component: {fileID: 4194456924136021552}
   m_Layer: 0
   m_Name: Kangaroo
   m_TagString: Untagged
@@ -4949,3 +4950,15 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &4194456924136021552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6363077336674202286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d09b0cc169d44c2fa1870c7f8503e509, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

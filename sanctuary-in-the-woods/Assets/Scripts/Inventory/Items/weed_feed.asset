@@ -15,4 +15,4 @@ MonoBehaviour:
   RegistryName: weed_feed
   Name: Weed Feed
   Sprite: {fileID: 21300000, guid: 35d42120868289c4ba239d08acf13213, type: 3}
-  MaxStackSize: 16
+  MaxStackSize: 64
