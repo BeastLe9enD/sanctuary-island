@@ -26,9 +26,10 @@ public class Player : MonoBehaviour
     private GameObject _gameObject;
     
     #region PREFABS
-
+    
     public GameObject BirdHouse;
     public GameObject BerryPlant;
+    public GameObject MainMenuCanvas;
     #endregion
 
     private void Start()
@@ -85,11 +86,6 @@ public class Player : MonoBehaviour
         TopTilemap.SetTile(tile_pos, null);
     }
 
-    private IEnumerator PetAnimal() {
-        if (!Input.GetMouseButtonDown(0)) yield break;
-        // TODO: add animation (3 loops of Interact), behaviour of animal
-    }
-    
     // Update is called once per frame
     void Update() {
         Movement();
@@ -114,7 +110,7 @@ public class Player : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            // TODO: PAUSE/UNPAUSE
+            MainMenuCanvas.SetActive(!MainMenuCanvas.activeSelf);
         }
     }
 
