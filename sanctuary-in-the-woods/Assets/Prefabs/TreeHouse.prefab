@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1536777122945145651}
   - component: {fileID: 3321918496013713201}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TreeTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6938669235990263671}
   - component: {fileID: 3101908182172048394}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,9 +131,9 @@ MonoBehaviour:
   m_ComponentVersion: 1
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.43
-  m_Color: {r: 1, g: 1, b: 0, a: 1}
-  m_Intensity: 2
+  m_FalloffIntensity: 0.925
+  m_Color: {r: 1, g: 0.23502252, b: 0, a: 1}
+  m_Intensity: 8
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -206,10 +206,9 @@ GameObject:
   - component: {fileID: 9059626110329885515}
   - component: {fileID: 7839857058640578282}
   - component: {fileID: -3167388621518678933}
-  - component: {fileID: 439393539751743884}
   - component: {fileID: -1107450172718973987}
   - component: {fileID: 4363893769474084539}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TreeHouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,21 +305,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &439393539751743884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9188301204525901243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8cf7621812440bd838e6168c4a61d55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EmptySprite: {fileID: 21300000, guid: c6645519a3ce8374cadb3f1d7a7d9bb0, type: 3}
-  GrowingSprite: {fileID: 21300000, guid: 0a8743af08998974d9658fe73e1e02eb, type: 3}
-  MatureSprite: {fileID: 21300000, guid: c74fd209594c5224594b37eea4f028bb, type: 3}
 --- !u!61 &-1107450172718973987
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -334,7 +318,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.5, y: -3}
+  m_Offset: {x: -0.3, y: -3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}

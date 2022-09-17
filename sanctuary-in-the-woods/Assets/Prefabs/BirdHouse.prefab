@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8668185623986413018}
   - component: {fileID: 8250684990981406811}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BirdHouseBottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 5206044092911899517}
   - component: {fileID: 7081622610463037297}
   - component: {fileID: 4807608235672558975}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BirdHouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
