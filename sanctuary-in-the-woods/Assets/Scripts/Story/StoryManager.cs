@@ -61,6 +61,11 @@ namespace Story
                 Time = 0.0;
                 ++Day;
             }
+
+            if (Time > 7.9f && Time < 8.0f) {
+                HandleUpdateLogic();
+                Time = 8.0f;
+            }
             
             var value = Math.Clamp((Math.Pow(Time - 13.9, 6.0) / 980000.0), 0.0, 1.0);
             _volume.weight = (float)value * _maxVolume;
@@ -99,6 +104,10 @@ namespace Story
             }
             Time = 8.0f;
 
+            HandleUpdateLogic();
+        }
+
+        private void HandleUpdateLogic() {
             HandleRabbits();
             HandleBirds();
             HandleBears();
@@ -185,10 +194,6 @@ namespace Story
         private void HandleBears()
         {
             var bears = FindObjectsOfType<BearStorage>();
-            if (bears.Length > 0)
-            {
-                return;
-            }
 
             var berryPlants = FindObjectsOfType<BerryPlantStorage>();
 
@@ -213,7 +218,7 @@ namespace Story
 
                 Instantiate(BerryBush, targetPos, Quaternion.identity);
 
-                if (i <= numPlants)
+                if (i <= numPlants && bears.Length == 0)
                 {
                     Instantiate(Bear, targetPos, Quaternion.identity);
                 }
@@ -223,7 +228,7 @@ namespace Story
         private void ShowBearMessage()
         {
             _popupManager.Enqueue("Oh, the bear is here!");
-            _popupManager.Enqueue("He can destroy little rocks if you feed him with weed feed.");
+            _popupManager.Enqueue("He can destroy little rocks if you feed him with berry feed.");
             _popupManager.Enqueue("You can use the bear to clean the sand hill in the north east from stones.");
             _popupManager.Enqueue("If you cleaned the sand hill, on the next day, the mole will appear there.");
         }

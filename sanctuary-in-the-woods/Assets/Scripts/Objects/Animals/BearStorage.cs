@@ -12,8 +12,8 @@ namespace Objects.Animals
             var itemRegistry = FindObjectOfType<ItemRegistry>();
 
             var stateManager = GetComponent<AnimalStateManager>();
-            stateManager.AddState(new AnimalIdleState(new StackedItem(itemRegistry.WeedFeed)));
-            stateManager.AddState(new AnimalTamedState(new StackedItem(itemRegistry.WeedFeed), typeof(BearDestroyRockState)));
+            stateManager.AddState(new AnimalIdleState(new StackedItem(itemRegistry.BerryFeed)));
+            stateManager.AddState(new AnimalTamedState(new StackedItem(itemRegistry.BerryFeed), typeof(BearDestroyRockState)));
             stateManager.AddState(new BearDestroyRockState());
             
             stateManager.Switch<AnimalIdleState>();
