@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a292dfe65ab149ddb9f96cdb2ddbd709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Stump: {fileID: 0}
+  Stump: {fileID: 9188301204525901243, guid: bb7656610e68ebe4d8c2274d1b302292, type: 3}
 --- !u!114 &-4989304521969993287
 MonoBehaviour:
   m_ObjectHideFlags: 0
