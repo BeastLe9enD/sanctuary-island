@@ -13,6 +13,7 @@ namespace Animals.Rabbits
         private PlayerInventory _playerInventory;
         private StoryManager _storyManager;
         private PopupManager _popupManager;
+        private TodoManager _todoManager;
 
         private TreeStorage _targetTree;
         
@@ -22,6 +23,7 @@ namespace Animals.Rabbits
             _playerInventory = Object.FindObjectOfType<PlayerInventory>();
             _storyManager = Object.FindObjectOfType<StoryManager>();
             _popupManager = Object.FindObjectOfType<PopupManager>();
+            _todoManager = Object.FindObjectOfType<TodoManager>();
 
             _targetTree = Object.FindObjectsOfType<TreeStorage>()
                 .OrderBy(tree => Vector3.Distance(tree.transform.position, manager.transform.position))
@@ -48,6 +50,7 @@ namespace Animals.Rabbits
                     _popupManager.Enqueue("You can place objects with the right mouse button.");
                     _popupManager.Enqueue("If you visit the bird house the next day, there will be some birds.");
                     
+                    _todoManager.UpdateTodo("Build a bird house (10 wood, 2 weed). Wait for the next day.");
                     _storyManager.FirstTreeCutDown = true;
                 }
                 

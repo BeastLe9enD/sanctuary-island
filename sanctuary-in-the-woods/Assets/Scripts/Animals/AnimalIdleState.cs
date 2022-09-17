@@ -16,6 +16,7 @@ namespace Animals {
         private ParticleSystem _particleSystem;
         private StoryManager _storyManager;
         private PopupManager _popupManager;
+        private TodoManager _todoManager;
 
         private StackedItem _tameStack;
 
@@ -76,6 +77,7 @@ namespace Animals {
             _particleSystem = manager.GetComponent<ParticleSystem>();
             _storyManager = Object.FindObjectOfType<StoryManager>();
             _popupManager = Object.FindObjectOfType<PopupManager>();
+            _todoManager = Object.FindObjectOfType<TodoManager>();
             _targetFound = GenerateNewTask(_origin, manager);
         }
 
@@ -90,6 +92,8 @@ namespace Animals {
                         _popupManager.Enqueue("You can right-click the animal to make it follow you.");
                         _popupManager.Enqueue("If you press the right mouse button again, the animal will stay seated again.");
                         _popupManager.Enqueue("If you left click the rabbit with 2 weed feed, it will cut down a tree.");
+                        
+                        _todoManager.UpdateTodo("Let the rabbits cut down a tree (2 weed feed).");
                         _storyManager.FirstAnimalTamed = true;
                     }
                     

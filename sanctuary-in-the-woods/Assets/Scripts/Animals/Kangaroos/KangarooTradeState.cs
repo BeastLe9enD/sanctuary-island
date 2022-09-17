@@ -12,6 +12,7 @@ namespace Animals.Kangaroos
         private PlayerInventory _playerInventory;
         private StoryManager _storyManager;
         private PopupManager _popupManager;
+        private TodoManager _todoManager;
         
         private bool _hasSeedFeed, _hasBerryFeed;
 
@@ -21,6 +22,7 @@ namespace Animals.Kangaroos
             _playerInventory = Object.FindObjectOfType<PlayerInventory>();
             _storyManager = Object.FindObjectOfType<StoryManager>();
             _popupManager = Object.FindObjectOfType<PopupManager>();
+            _todoManager = Object.FindObjectOfType<TodoManager>();
 
             _hasSeedFeed = false;
             _hasBerryFeed = false;
@@ -51,6 +53,8 @@ namespace Animals.Kangaroos
                     _popupManager.Enqueue("Yaaay, you got your first cake!");
                     _popupManager.Enqueue("You can give the cake to the mole.");
                     _popupManager.Enqueue("It will build a second pond where the flamingo will arrive on the next day.");
+                    
+                    _todoManager.UpdateTodo("Give the cake to the mole.");
                 }
                 
                 manager.Switch<AnimalTamedState>();

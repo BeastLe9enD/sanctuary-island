@@ -52,6 +52,7 @@ namespace Story
         #endregion
 
         private PopupManager _popupManager;
+        private TodoManager _todoManager;
         
         private void UpdateTime()
         {
@@ -86,6 +87,9 @@ namespace Story
             _popupManager.Enqueue("You can collect weed and put it into the feed jug to attract rabbits.");
             _popupManager.Enqueue("And don't forget to sleep. Click on the tree house after 10am sleep until morning.");
             _popupManager.Enqueue("The rabbits will already be waiting for you the next day.");
+            
+            _todoManager = FindObjectOfType<TodoManager>();
+            _todoManager.UpdateTodo("Put weed into the feed jug and wait for next day.");
         }
         
         void FixedUpdate()
@@ -155,6 +159,8 @@ namespace Story
             _popupManager.Enqueue("To craft Wild Food, you must combine Weeds with a Bag.");
             _popupManager.Enqueue("You make a bag from two weeds.");
             _popupManager.Enqueue("You can open the crafting menu by pressing E");
+            
+            _todoManager.UpdateTodo("Tame the rabbits by using Wild Food.");
         }
         
         private void HandleBirds()
@@ -189,6 +195,8 @@ namespace Story
             _popupManager.Enqueue("Yaaay, the birds are here!");
             _popupManager.Enqueue("You can give them wild food and they will give you seeds in exchange.");
             _popupManager.Enqueue("You can grow the seeds to make the bear appear on the next day.");
+            
+            _todoManager.UpdateTodo("Feed the birds and plant bushes for the bears.");
         }
 
         private void HandleBears()
@@ -208,6 +216,8 @@ namespace Story
                 numPlants = 4;
             }
 
+            var messageShowed = false;
+            
             for (var i = 0; i < berryPlants.Length; i++)
             {
                 var berryPlant = berryPlants[i];
@@ -221,6 +231,10 @@ namespace Story
                 if (i <= numPlants && bears.Length == 0)
                 {
                     Instantiate(Bear, targetPos, Quaternion.identity);
+                    if (!messageShowed) {
+                        messageShowed = true;
+                        ShowBearMessage();
+                    }
                 }
             }
         }
@@ -231,6 +245,8 @@ namespace Story
             _popupManager.Enqueue("He can destroy little rocks if you feed him with berry feed.");
             _popupManager.Enqueue("You can use the bear to clean the sand hill in the north east from stones.");
             _popupManager.Enqueue("If you cleaned the sand hill, on the next day, the mole will appear there.");
+            
+            _todoManager.UpdateTodo("Feed the bears with berry feed. Let them remove the rocks from sand hill.");
         }
 
         private void HandleMoles()
@@ -267,6 +283,8 @@ namespace Story
             _popupManager.Enqueue("You can tame him wit seed feed.");
             _popupManager.Enqueue("After the mole has been tamed, you can give him 6 seed feed to build a pond.");
             _popupManager.Enqueue("After sleeping, the beaver will appear on the pond build by the mole.");
+            
+            _todoManager.UpdateTodo("Feed the mole with 6 seed feed (at once).");
         }
         
         private void HandleBeavers() {
@@ -292,7 +310,9 @@ namespace Story
             _popupManager.Enqueue("So you can tame the beaver with berry feed.");
             _popupManager.Enqueue("After being tamed, the beaver can be fed with 2 berry feed to build the bridge.");
             _popupManager.Enqueue("This allows you to pass the river, where the kangaroo is already waiting for you.");
-            _popupManager.Enqueue("If you feed the kangaroo with all seed variants, it will give you a cake.");
+            _popupManager.Enqueue("If you feed the kangaroo with all feed variants, it will give you a cake.");
+            
+            _todoManager.UpdateTodo("Feed the beaver (2 berry feed). Feed the kangaroo (all feed variants).");
         }
 
         private void HandleFlamingos()
@@ -319,6 +339,8 @@ namespace Story
             _popupManager.Enqueue("You can tame the flamingo with berry feed.");
             _popupManager.Enqueue("Feed the flamingo 4 berry feed and it will make the oasis green again.");
             _popupManager.Enqueue("When the oasis has been greened, the elephants will appear the next day.");
+            
+            _todoManager.UpdateTodo("Feed the flamingo (4 berry feed). Wait for the next day.");
         }
 
         private void HandleElephants()
@@ -347,6 +369,8 @@ namespace Story
             _popupManager.Enqueue("The elephants have arrived!");
             _popupManager.Enqueue("You can tame the elephants with berry feed.");
             _popupManager.Enqueue("You can feed the elephants with berry feed to make them destroy the big rocks in the north.");
+            
+            _todoManager.UpdateTodo("Take an elephant to the mountains. Let it destroy the rocks (berry feed).");
         }
 
         #endregion
