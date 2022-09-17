@@ -108,6 +108,16 @@ public class Player : MonoBehaviour
         {
             HandleObjectPlacement();
         }
+
+        if (Input.GetKeyDown(KeyCode.M)) {
+            var transform = GameObject.Find("Canvas").transform;
+            var obj = transform.GetChild(5).gameObject;
+            obj.SetActive(!obj.activeSelf);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            // TODO: PAUSE/UNPAUSE
+        }
     }
 
     private void FixedUpdate() {

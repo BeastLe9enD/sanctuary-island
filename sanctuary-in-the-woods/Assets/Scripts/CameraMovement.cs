@@ -11,9 +11,9 @@ public sealed class CameraMovement : MonoBehaviour
     private void Update() {
         var camera = Camera.main;
         
-        if(Input.GetKey(KeyCode.Plus))
+        if(Input.mouseScrollDelta.y < 0)
         {
-            camera.orthographicSize += 3 * Time.deltaTime;
+            camera.orthographicSize += 20 * Time.deltaTime;
             if(camera.orthographicSize > 10)
             {
                 camera.orthographicSize = 10;
@@ -21,9 +21,9 @@ public sealed class CameraMovement : MonoBehaviour
         }
  
  
-        if(Input.GetKey(KeyCode.Minus))
+        if(Input.mouseScrollDelta.y > 0)
         {
-            camera.orthographicSize -= 3 * Time.deltaTime;
+            camera.orthographicSize -= 20 * Time.deltaTime;
             if(camera.orthographicSize < 4) {
                 camera.orthographicSize = 4;
             }
