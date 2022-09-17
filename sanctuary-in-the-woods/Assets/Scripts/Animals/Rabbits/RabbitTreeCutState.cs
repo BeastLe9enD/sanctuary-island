@@ -34,8 +34,13 @@ namespace Animals.Rabbits
         {
             if (manager.Agent.remainingDistance <= 1.0)
             {
+                var stump = _targetTree.Stump;
+                var treePosition = _targetTree.transform.position;
+                
                 _targetTree.GetComponent<ItemDropper>().DropItems();
                 Object.Destroy(_targetTree.gameObject);
+
+                Object.Instantiate(stump, treePosition, Quaternion.identity);
 
                 if (!_storyManager.FirstTreeCutDown)
                 {
