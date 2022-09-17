@@ -61,6 +61,11 @@ namespace Story
                 Time = 0.0;
                 ++Day;
             }
+
+            if (Time > 7.9f && Time < 8.0f) {
+                HandleUpdateLogic();
+                Time = 8.0f;
+            }
             
             var value = Math.Clamp((Math.Pow(Time - 13.9, 6.0) / 980000.0), 0.0, 1.0);
             _volume.weight = (float)value * _maxVolume;
@@ -99,6 +104,10 @@ namespace Story
             }
             Time = 8.0f;
 
+            HandleUpdateLogic();
+        }
+
+        private void HandleUpdateLogic() {
             HandleRabbits();
             HandleBirds();
             HandleBears();
