@@ -223,7 +223,7 @@ namespace Story
         private void ShowBearMessage()
         {
             _popupManager.Enqueue("Oh, the bear is here!");
-            _popupManager.Enqueue("He can destroy little rocks if you feed him with weed feed.");
+            _popupManager.Enqueue("He can destroy little rocks if you feed him with berry feed.");
             _popupManager.Enqueue("You can use the bear to clean the sand hill in the north east from stones.");
             _popupManager.Enqueue("If you cleaned the sand hill, on the next day, the mole will appear there.");
         }
