@@ -260,7 +260,7 @@ namespace Story
         {
             _popupManager.Enqueue("The mole appeared on the sand hill!");
             _popupManager.Enqueue("You can tame him wit seed feed.");
-            _popupManager.Enqueue("After the mole has been tamed, you can give him 6 weed feed to build a pond.");
+            _popupManager.Enqueue("After the mole has been tamed, you can give him 6 seed feed to build a pond.");
             _popupManager.Enqueue("After sleeping, the beaver will appear on the pond build by the mole.");
         }
         
@@ -284,7 +284,7 @@ namespace Story
         private void ShowBeaverMessage()
         {
             _popupManager.Enqueue("Yay! The beaver has arrived!");
-            _popupManager.Enqueue("Sou can tame the beaver with berry feed.");
+            _popupManager.Enqueue("So you can tame the beaver with berry feed.");
             _popupManager.Enqueue("After being tamed, the beaver can be fed with 2 berry feed to build the bridge.");
             _popupManager.Enqueue("This allows you to pass the river, where the kangaroo is already waiting for you.");
             _popupManager.Enqueue("If you feed the kangaroo with all seed variants, it will give you a cake.");
